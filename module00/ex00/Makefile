@@ -7,7 +7,7 @@ SRC_FILES =	$(SRC_DIR)/megaphone.cpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 REMOVE = rm -f
-CC = c++
+CC = clang++
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 
 all: $(NAME)
@@ -17,7 +17,7 @@ $(NAME): $(OBJ_FILES)
 	@$(CC) $(CFLAGS) $(OBJ_FILES) -o $(NAME)
 	@echo "Ready"
 
-.c.o:
+.cpp.o:
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
