@@ -58,15 +58,29 @@ void	PhoneBook::add_contact() {
 	data[index].setSecret(input);
 }
 
+bool	is_valid_index(int &input, int total) {
+	std::cout << "Enter " << GREEN << "index " << RESET << "number to view contact details or ";
+	std::cout << GREEN << "9" << RESET << " to return to main menu\n" << ">";
+	std::cin >> input;
+	if (input < 0 || input > 9 || ((input > total - 1) && input != 9)) {
+		std::cin.clear();  // Clear error flags
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Discard bad input
+		std::cerr << RED << "Invalid Input: Enter index number or 9\n" << RESET;
+		return (false);
+	}
+	return (true);
+}
+
 void	PhoneBook::find_contact() {
 	std::string	name, last, nick;
+	int	input = 42;
 
 	system("clear");
 	if (total == 0) {
-		std::cout << "Error: No contacts found: Please add a contact" << std::endl;
+		std::cerr << RED << "Error: No contacts found: Please add a contact" << RESET;
 		return;
 	}
-	std::cout << BOLD << std::setw(10) << "Index" << RESET << "|";
+	std::cout << "|" << BOLD << std::setw(10) << "Index" << RESET << "|";
 	std::cout << BOLD << std::setw(10) << "Firstname" << RESET << "|";
 	std::cout << BOLD << std::setw(10) << "Lastname" << RESET << "|";
 	std::cout << BOLD << std::setw(10) << "Nickname" << RESET << "|" << std::endl;
@@ -83,12 +97,25 @@ void	PhoneBook::find_contact() {
 		nick = data[index].getNick();
 		if (nick.length() > 9)
 			nick = nick.substr(0, 9) + ".";
-		std::cout << GREEN << std::setw(10) << index << RESET << "|";
+		std::cout << "|" << GREEN << std::setw(10) << index << RESET << "|";
 		std::cout << std::setw(10) << name << "|";
 		std::cout << std::setw(10) << last << "|";
-		std::cout << std::setw(10) << nick << "|";
+		std::cout << std::setw(10) << nick << "|" << std::endl;
 		index++; 
 	}
-	std::string pause;
-	std::cin >> pause;
+	while (is_valid_index(input, total) == false) {};
+	if (input == 9)
+		return ;
+	else {
+		system("clear");
+		std::cout << BOLD << "First Name:     " << RESET << data[input].getName() << "\n";
+		std::cout << BOLD << "Last Name:      " << RESET << data[input].getLast() << "\n";
+		std::cout << BOLD << "Nick Name:      " << RESET << data[input].getNick() << "\n";
+		std::cout << BOLD << "Phone Number:   " << RESET << data[input].getPhone() << "\n";
+		std::cout << BOLD << "Darkest Secret: " << RESET << data[input].getSecret() << "\n" << std::endl;
+	}
+	
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // flush input buffer
+	std::cout << "Press " << GREEN << "ENTER " << RESET << "to return to main menu" << std::endl;
+	std::getchar();
 }
