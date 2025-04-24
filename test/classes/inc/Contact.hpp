@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-class Contact{
+class Contact {
 	public:
 		Contact();
 		~Contact();

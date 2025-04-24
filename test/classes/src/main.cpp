@@ -3,32 +3,23 @@
 
 int	main(void)
 {
-	Contact	new_contact;
+	PhoneBook	PBook;
 	std::string	input;
-	std::cout << "Enter Name" << std::endl;
-	std::getline(std::cin, input);
-	new_contact.setName(input);
-	std::cout << "Enter LastName" << std::endl;
-	std::getline(std::cin, input);
-	new_contact.setLast(input);
-	std::cout << "Enter NickName" << std::endl;
-	std::getline(std::cin, input);
-	new_contact.setNick(input);
-	std::cout << "Enter Phone Number" << std::endl;
-	std::getline(std::cin, input);
-	new_contact.setPhone(input);
-	std::cout << "Enter Darkest Secret" << std::endl;
-	std::getline(std::cin, input);
-	new_contact.setSecret(input);
-	system("clear");
-	std::cout << std::setw(5) << "Index" << "|";
-	std::cout << std::setw(10) << "Firstname" << "|";
-	std::cout << std::setw(10) << "Lastname" << "|";
-	std::cout << std::setw(10) << "Nickname" << std::endl;
-	std::cout << "Name: " << new_contact.getName() << std::endl;
-	std::cout << "LastName: " << new_contact.getLast() << std::endl;
-	std::cout << "NickName: " << new_contact.getNick() << std::endl;
-	std::cout << "Phone No.: " << new_contact.getPhone() << std::endl;
-	std::cout << "Darkest Secret:" << new_contact.getSecret() << std::endl;
+
+	while (1) {
+		system("clear");
+		std::cout << BOLD << "PhoneBook\n" << RESET;
+		std::cout << GREEN << "ADD " << RESET << "a contact. ";
+		std::cout << GREEN << "SEARCH " << RESET << "for a contact. ";
+		std::cout << GREEN << "EXIT " << RESET << "application." << std::endl;
+		std::cout << "> ";
+		std::getline(std::cin, input);
+		if (input.compare("ADD") == 0)
+			PBook.add_contact();
+		else if (input.compare("SEARCH") == 0)
+			PBook.find_contact();
+		else if (input.compare("EXIT") == 0)
+			break ;
+	}
 	return (0);
 }

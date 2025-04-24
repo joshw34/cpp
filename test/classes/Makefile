@@ -3,7 +3,8 @@ NAME = phonebook
 SRC_DIR = ./src
 
 SRC_FILES =	$(SRC_DIR)/main.cpp \
-			$(SRC_DIR)/Contact.cpp
+			$(SRC_DIR)/Contact.cpp \
+			$(SRC_DIR)/PhoneBook.cpp
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
