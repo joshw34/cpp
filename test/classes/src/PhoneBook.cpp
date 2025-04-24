@@ -59,17 +59,35 @@ void	PhoneBook::add_contact() {
 }
 
 void	PhoneBook::find_contact() {
+	std::string	name, last, nick;
+
+	system("clear");
 	if (total == 0) {
-		std::cout << "Error: No contacts found: Please add a contact" << std::endl; return;
+		std::cout << "Error: No contacts found: Please add a contact" << std::endl;
+		return;
 	}
-	std::cout << std::setw(10) << "Index" << "|";
-	std::cout << std::setw(10) << "Firstname" << "|";
-	std::cout << std::setw(10) << "Lastname" << "|";
-	std::cout << std::setw(10) << "Nickname" << std::endl;
+	std::cout << BOLD << std::setw(10) << "Index" << RESET << "|";
+	std::cout << BOLD << std::setw(10) << "Firstname" << RESET << "|";
+	std::cout << BOLD << std::setw(10) << "Lastname" << RESET << "|";
+	std::cout << BOLD << std::setw(10) << "Nickname" << RESET << "|" << std::endl;
 	index = 0;
 	while (index < 8) {
-		std::cout << index << data[index].getName() << data[index].getLast() << data[index].getNick() << std::endl;
-		index++;
+		if (index == total)
+			break ;
+		name = data[index].getName();
+		if (name.length() > 9)
+			name = name.substr(0, 9) + ".";
+		last = data[index].getLast();
+		if (last.length() > 9)
+			last = last.substr(0, 9) + ".";
+		nick = data[index].getNick();
+		if (nick.length() > 9)
+			nick = nick.substr(0, 9) + ".";
+		std::cout << GREEN << std::setw(10) << index << RESET << "|";
+		std::cout << std::setw(10) << name << "|";
+		std::cout << std::setw(10) << last << "|";
+		std::cout << std::setw(10) << nick << "|";
+		index++; 
 	}
 	std::string pause;
 	std::cin >> pause;
