@@ -3,6 +3,11 @@
 #include <ctime>
 #include <iomanip>
 
+int	Account::_nbAccounts = 0;
+int	Account::_totalAmount = 0;
+int	Account::_totalNbDeposits = 0;
+int Account::_totalNbWithdrawals = 0;
+
 Account::Account(int initial_deposit) {
 	_nbAccounts++;
 	_totalAmount += initial_deposit;
@@ -49,6 +54,7 @@ void	Account::displayAccountsInfos() {
 }
 
 void	Account::makeDeposit(int deposit) {
+	Account::_displayTimestamp();
 	std::cout	<< "index:" << _accountIndex << ";"
 				<< "p_amount:" << _amount << ";"
 				<< "deposit:" << deposit << ";";
@@ -61,6 +67,7 @@ void	Account::makeDeposit(int deposit) {
 }
 
 bool	Account::makeWithdrawal(int withdrawal) {
+	Account::_displayTimestamp();
 	std::cout	<< "index:" << _accountIndex << ";"
 				<< "p_amount:" << _amount << ";"
 				<< "withdrawal:";
@@ -102,5 +109,5 @@ void	Account::_displayTimestamp() {
 				<< std::setfill('0') << std::setw(2) << timedata.tm_hour 
 				<< std::setfill('0') << std::setw(2) << timedata.tm_min
 				<< std::setfill('0') << std::setw(2) << timedata.tm_sec
-				<< "]" ;
+				<< "] ";
 }
