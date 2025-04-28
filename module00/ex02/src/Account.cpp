@@ -13,8 +13,8 @@ Account::Account(int initial_deposit) {
 	_totalAmount += initial_deposit;
 	_accountIndex = _nbAccounts - 1;
 	_amount = initial_deposit;
-	_nbDeposits = 1;
 	_nbWithdrawals = 0;
+	_nbDeposits = 0;
 	Account::_displayTimestamp();
 	std::cout	<< "index:" << _accountIndex << ";"
 				<< "amount:" << _amount << ";"
