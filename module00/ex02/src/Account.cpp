@@ -11,7 +11,6 @@ int Account::_totalNbWithdrawals = 0;
 Account::Account(int initial_deposit) {
 	_nbAccounts++;
 	_totalAmount += initial_deposit;
-	_totalNbDeposits++;
 	_accountIndex = _nbAccounts - 1;
 	_amount = initial_deposit;
 	_nbDeposits = 1;
