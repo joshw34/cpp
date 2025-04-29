@@ -1,11 +1,17 @@
 #include "../inc/Zombie.hpp"
 
-int	main(void) {
-	std::string	zombieName;
+void	randomChump(std::string name);
+Zombie* newZombie(std::string name);
 
-	std::cout << "Enter Zombie Name: ";
-	std::cin >> zombieName ;
+int	main(void) {
+	std::string	name;
+
+	std::cout << "Enter First Zombie Name: ";
+	std::cin >> name ;
 	std::cout << std::endl;
 
-	Zombie	newZomb(zombieName);
+	randomChump(name);
+
+	Zombie* z = newZombie(name);
+	delete z;
 }

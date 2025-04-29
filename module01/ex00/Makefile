@@ -3,7 +3,9 @@ NAME = zombie
 SRC_DIR = ./src
 
 SRC_FILES =	$(SRC_DIR)/main.cpp \
-			$(SRC_DIR)/Zombie.cpp
+			$(SRC_DIR)/Zombie.cpp \
+			$(SRC_DIR)/randomChump.cpp \
+			$(SRC_DIR)/newZombie.cpp
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
