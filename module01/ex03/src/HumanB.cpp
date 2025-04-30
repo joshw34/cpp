@@ -1,6 +1,7 @@
 #include "../inc/HumanB.hpp"
 
 HumanB::HumanB(std::string name) : name(name) {
+	this->weaponPtr = NULL;
 }
 
 HumanB::~HumanB() {

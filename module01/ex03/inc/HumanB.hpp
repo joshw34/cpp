@@ -1,7 +1,7 @@
 #ifndef HUMANB_HPP
 #define HUMANB_HPP
 
-#include "../inc/Weapon.hpp"
+#include "./Weapon.hpp"
 #include <string>
 #include <iostream>
 
