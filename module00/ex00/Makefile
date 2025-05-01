@@ -1,6 +1,6 @@
 NAME = megaphone 
 
-SRC_DIR = ./src
+SRC_DIR = .
 
 SRC_FILES =	$(SRC_DIR)/megaphone.cpp 
 

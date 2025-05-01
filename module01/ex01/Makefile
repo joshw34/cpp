@@ -1,6 +1,7 @@
 NAME = zombieHorde
 
 SRC_DIR = ./src
+INC_DIR = ./inc
 
 SRC_FILES =	$(SRC_DIR)/main.cpp \
 			$(SRC_DIR)/Zombie.cpp \
@@ -10,7 +11,7 @@ OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 REMOVE = rm -f
 CC = clang++
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CFLAGS = -Wall -Werror -Wextra -std=c++98 -I$(INC_DIR)
 
 all: $(NAME)
 

@@ -4,8 +4,7 @@ HumanB::HumanB(std::string name) : name(name) {
 	this->weaponPtr = NULL;
 }
 
-HumanB::~HumanB() {
-}
+HumanB::~HumanB() {}
 
 void	HumanB::setWeapon(Weapon& w) {
 	this->weaponPtr = &w;

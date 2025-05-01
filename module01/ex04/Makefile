@@ -1,10 +1,10 @@
-NAME = account
+NAME = str_replacer
 
 SRC_DIR = ./src
 INC_DIR = ./inc
 
-SRC_FILES =	$(SRC_DIR)/tests.cpp \
-			$(SRC_DIR)/Account.cpp
+SRC_FILES =	$(SRC_DIR)/main.cpp \
+			$(SRC_DIR)/StrReplace.cpp
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
