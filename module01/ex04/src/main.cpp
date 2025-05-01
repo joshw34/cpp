@@ -12,6 +12,7 @@ int main(int ac, char** av) {
 		return EXIT_FAILURE;
 	if (!replacer.setStrings(av[2], av[3]))
 		return EXIT_FAILURE;
-	replacer.replace();
+	if (!replacer.replace())
+		return EXIT_FAILURE;
 	return EXIT_SUCCESS;
 }

@@ -1,0 +1,41 @@
+TEST 1:
+./str_replacer "./tests/test1" "test" "example"
+
+Expected Output:
+This is a simple example.
+The word example should be replaced.
+This examples multiple occurrences of example in a example file.
+
+
+
+TEST 2:
+./str_replacer "./tests/test2" "\n" "<NEWLINE>"
+
+Expected Output:
+Line one<NEWLINE>Line two<NEWLINE>Line three
+
+
+
+TEST 3:
+./str_replacer "./tests/test3" "aba" "XYZ"
+
+Expected Output:
+XYZbXYZ can be bXYZb tricky when XYZaaaXYZbbXYZ replacing consecutive patterns.
+
+
+
+TEST 4:
+./str_replacer "./tests/test4" "anything" "something"
+
+Expected Output:
+Empty file
+
+
+
+TEST 5:
+./str_replacer "./tests/test5" "a" "_A_"
+
+Expected Output:
+Hello, world!
+This is _A_ test with punctu_A_tion, numbers (123), _A_nd speci_A_l ch_A_r_A_cters: !@#$%.
+The end of the file h_A_s no newline.

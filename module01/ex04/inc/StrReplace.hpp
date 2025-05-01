@@ -14,7 +14,7 @@ class	StrReplace {
 
 		bool	setInfile(char* filename);
 		bool	setStrings(char* to_find, char* to_insert);
-		void	replace();
+		bool	replace();
 
 	private:
 		int			found;
@@ -23,8 +23,8 @@ class	StrReplace {
 		std::string	to_find;
 		std::string to_insert;
 
-		void		process_nl(std::string& s);
-		std::string insert_new(std::string& infile_full);
+		void		replaceNewlineChar(std::string& s);
+		std::string replaceOccurrences(std::string& infile_full);
 		void		print_result();
 };
 

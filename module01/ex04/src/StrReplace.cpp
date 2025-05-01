@@ -36,12 +36,12 @@ bool	StrReplace::setStrings(char* to_find, char* to_insert) {
 		std::cerr << "Error: Search string must not be empty" << std::endl;
 		return false;
 	}
-	this->process_nl(this->to_find);
-	this->process_nl(this->to_insert);
+	this->replaceNewlineChar(this->to_find);
+	this->replaceNewlineChar(this->to_insert);
 	return true;
 }
 
-void	StrReplace::process_nl(std::string& s) {
+void	StrReplace::replaceNewlineChar(std::string& s) {
 	std::string new_s;
 
 	for (size_t i = 0; i < s.length(); i++) {
@@ -56,7 +56,7 @@ void	StrReplace::process_nl(std::string& s) {
 	s = new_s;
 }
 
-void	StrReplace::replace() {
+bool	StrReplace::replace() {
 	std::ifstream infile(this->infile.c_str());
 	std::ofstream outfile(this->outfile.c_str());
 	std::stringstream buffer;
@@ -64,21 +64,22 @@ void	StrReplace::replace() {
 	
 	if (!outfile.is_open()) {
 		std::cerr << "Error: could not open output file";
-		return ;
+		return false;
 	}
 	if (!infile.is_open()) {
 		std::cerr << "Error: could not open input file";
-		return ;
+		return false;
 	}
 	buffer << infile.rdbuf();
 	infile_full = buffer.str();
 	infile.close();
-	outfile << this->insert_new(infile_full);
+	outfile << this->replaceOccurrences(infile_full);
 	outfile.close();
 	this->print_result();
+	return true;
 }
 
-std::string	StrReplace::insert_new(std::string& s) {
+std::string	StrReplace::replaceOccurrences(std::string& s) {
 	std::string	new_s;
 	int	find_len = this->to_find.length();
 	
