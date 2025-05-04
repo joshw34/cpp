@@ -16,7 +16,6 @@ class	Harl {
 		void	info(void);
 		void	warning(void);
 		void	error(void);
-		static	std::string	complaints[4];
 };
 
 #endif

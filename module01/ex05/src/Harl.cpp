@@ -1,15 +1,23 @@
 #include "../inc/Harl.hpp"
 
+std::string	Harl::levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+
+std::string	Harl::complaints[4] = {
+	"I love having extra bacon for my 7XL-double-cheese-triple-pickle-special ketchup burger. I really do!",
+	"I cannot believe adding extra bacon costs more money.vYou didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!",
+	"I think I deserve to have some extra bacon for free. I’ve been coming for years whereas you started working here since last month.",
+	"This is unacceptable! I want to speak to the manager now."
+};
+
 Harl::Harl() {}
 
 Harl::~Harl() {}
 
-void	Harl::complain(std::string level) {
+void	Harl::complain(std::string input) {
 	void	(Harl::*complainPTR[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-	std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
 	for (int i = 0; i < 4; i++) {
-		if (levels[i] == level) {
+		if (this->levels[i] == input) {
 			(this->*complainPTR[i])();
 			break ;
 		}
@@ -17,24 +25,17 @@ void	Harl::complain(std::string level) {
 }
 
 void	Harl::debug() {
-	std::cout	<<	"[DEBUG]\nI love having extra bacon for my 7XL-double-cheese-"
-					"triple-pickle-special ketchup burger. I really do!"
-				<<	std::endl;
+	std::cout << this->levels[0] << "\n" << this->complaints[0] << std::endl;
 }
 
 void	Harl::info() {
-	std::cout	<<	"[INFO]\nI cannot believe adding extra bacon costs more money. "
-					"You didn’t put enough bacon in my burger! If you did, "
-					"I wouldn’t be asking for more!" << std::endl;
+	std::cout << this->levels[1] << "\n" << this->complaints[1] << std::endl;
 }
 
 void	Harl::warning() {
-	std::cout	<<	"[WARNING]\nI think I deserve to have some extra bacon for free. "
-					"I’ve been coming for years whereas you started working"
-					" here since last month." << std::endl;
+	std::cout << this->levels[2] << "\n" << this->complaints[2] << std::endl;
 }
 
 void	Harl::error() {
-	std::cout	<<	"[ERROR]\nThis is unacceptable! I want to speak to the manager now."
-				<< 	std::endl;
+	std::cout << this->levels[3] << "\n" << this->complaints[3] << std::endl;
 }
