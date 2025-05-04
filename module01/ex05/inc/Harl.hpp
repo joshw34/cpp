@@ -2,7 +2,7 @@
 #define HARL_HPP
 
 #include <string>
-#include <iostream>
+#include <iostream> // IWYU pragma: keep
 
 class	Harl {
 	public:
