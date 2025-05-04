@@ -18,6 +18,7 @@ class	Harl {
 		void	warning(void);
 		void	error(void);
 		static	std::string	complaints[4];
+		void (Harl::*complainFuncPTR[4])(void);
 };
 
 #endif

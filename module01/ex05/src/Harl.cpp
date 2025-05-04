@@ -9,16 +9,20 @@ std::string	Harl::complaints[4] = {
 	"This is unacceptable! I want to speak to the manager now.\n"
 };
 
-Harl::Harl() {}
+Harl::Harl() {
+	complainFuncPTR[0] = &Harl::debug;
+	complainFuncPTR[1] = &Harl::info;
+	complainFuncPTR[2] = &Harl::warning;
+	complainFuncPTR[3] = &Harl::error;
+}
 
 Harl::~Harl() {}
 
 void	Harl::complain(std::string input) {
-	void	(Harl::*complainPTR[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
 	for (int i = 0; i < 4; i++) {
 		if (this->levels[i] == input) {
-			(this->*complainPTR[i])();
+			(this->*complainFuncPTR[i])();
 			break ;
 		}
 	}

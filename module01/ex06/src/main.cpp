@@ -11,13 +11,13 @@ void	harlFilter(Harl& h, std::string& input) {
 	}
 	switch (hf) {
 		case 0:
-			h.complain("DEBUG");
+			h.complain(h.levels[0]);
 		case 1:
-			h.complain("INFO");
+			h.complain(h.levels[1]);
 		case 2:
-			h.complain("WARNING");
+			h.complain(h.levels[2]);
 		case 3:
-			h.complain("ERROR");
+			h.complain(h.levels[3]);
 			break ;
 		default:
 			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
