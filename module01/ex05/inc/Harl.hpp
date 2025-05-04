@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream> // IWYU pragma: keep
+#include <cstdlib>	// IWYU pragma: keep
 
 class	Harl {
 	public:

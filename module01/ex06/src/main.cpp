@@ -1,18 +1,14 @@
 #include "../inc/Harl.hpp"
 
-int	find_level(std::string& level) {
-	std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-	
+void	harlFilter(Harl& h, std::string& input) {
+	int	hf = -1;
+
 	for (int i = 0; i < 4; i++) {
-		if (levels[i] == level)
-			return i;
+		if (h.levels[i] == input) {
+			hf = i;
+			break ;
+		}
 	}
-	return -1;
-}
-
-void	harlFilter(Harl& h, std::string& level) {
-	int	hf = find_level(level);
-
 	switch (hf) {
 		case 0:
 			h.complain("DEBUG");
@@ -30,13 +26,13 @@ void	harlFilter(Harl& h, std::string& level) {
 
 int	main(int ac, char** av) {
 	Harl	h;
-	std::string	level;
+	std::string	input;
 
 	if (ac != 2) {
 		std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
 		return EXIT_FAILURE;
 	}
-	level = av[1];
-	harlFilter(h, level);
+	input = av[1];
+	harlFilter(h, input);
 	return EXIT_SUCCESS;
 }

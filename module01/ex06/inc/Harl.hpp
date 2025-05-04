@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream> // IWYU pragma: keep
+#include <cstdlib>	// IWYU pragma: keep
 
 class	Harl {
 	public:
@@ -16,6 +17,7 @@ class	Harl {
 		void	info(void);
 		void	warning(void);
 		void	error(void);
+		static	std::string	complaints[4];
 };
 
 #endif
