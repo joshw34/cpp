@@ -10,8 +10,8 @@ int	main(void) {
 		std::cout << "\n";
 	}
 	while (level.compare("EXIT") != 0) {
-		std::cout << "\nEnter DEBUG, INFO, WARNING, ERROR or EXIT\n> ";
-		std::cin >> level;
+		std::cout << "\nEnter: DEBUG, INFO, WARNING, ERROR or EXIT\n> ";
+		std::getline(std::cin, level);
 		h.complain(level);
 	}
 }
