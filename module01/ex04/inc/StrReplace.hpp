@@ -23,9 +23,9 @@ class	StrReplace {
 		std::string	to_find;
 		std::string to_insert;
 
-		void		replaceNewlineChar(std::string& s);
-		std::string replaceOccurrences(std::string& infile_full);
-		void		print_result();
+		void	replaceNewlineChar(std::string& s);
+		void	replaceOccurrences(std::string& s);
+		void	print_result();
 };
 
 #endif

@@ -42,18 +42,15 @@ bool	StrReplace::setStrings(char* to_find, char* to_insert) {
 }
 
 void	StrReplace::replaceNewlineChar(std::string& s) {
-	std::string new_s;
-
-	for (size_t i = 0; i < s.length(); i++) {
-		if (s.substr(i).find("\\n") == 0) {
-			i++;
-			new_s += "\n";
-		}
-		else
-			new_s += s[i];
+	size_t	i = 0;
+	while (1) {
+		i = s.find("\\n", i);
+		if (i == s.npos)
+			return ;
+		s.erase(i, 2);
+		s.insert(i, "\n");
+		i++;
 	}
-	s.clear();
-	s = new_s;
 }
 
 bool	StrReplace::replace() {
@@ -73,26 +70,25 @@ bool	StrReplace::replace() {
 	buffer << infile.rdbuf();
 	infile_full = buffer.str();
 	infile.close();
-	outfile << this->replaceOccurrences(infile_full);
+	this->replaceOccurrences(infile_full);
+	outfile << infile_full;
 	outfile.close();
 	this->print_result();
 	return true;
 }
 
-std::string	StrReplace::replaceOccurrences(std::string& s) {
-	std::string	new_s;
-	int	find_len = this->to_find.length();
+void	StrReplace::replaceOccurrences(std::string& s) {
+	size_t	i = 0;
 	
-	for (size_t i = 0; i < s.length(); i++) {
-		if (s.substr(i).find(this->to_find) == 0) {
-			i += find_len - 1;
-			new_s += this->to_insert;
-			this->found++;
-		}
-		else
-			new_s += s[i];
+	while (1) {
+		i = s.find(this->to_find, i);
+		if (i == s.npos)
+			return ;
+		s.erase(i, this->to_find.length());
+		s.insert(i, this->to_insert);
+		i += this->to_insert.length();
+		this->found++;
 	}
-	return new_s;
 }
 
 void	StrReplace::print_result() {
