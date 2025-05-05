@@ -21,5 +21,5 @@ int	main(void)
 		else if (input.compare("EXIT") == 0)
 			break ;
 	}
-	return (0);
+	return 0;
 }
