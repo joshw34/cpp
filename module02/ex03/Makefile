@@ -5,6 +5,8 @@ INC_DIR = ./inc
 
 SRC_FILES =	$(SRC_DIR)/main.cpp \
 			$(SRC_DIR)/Fixed.cpp \
+			$(SRC_DIR)/Point.cpp \
+			$(SRC_DIR)/bsp.cpp \
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
