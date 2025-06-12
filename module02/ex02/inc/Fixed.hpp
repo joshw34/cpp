@@ -7,8 +7,6 @@
 
 #define RED "\033[31m"
 #define RESET "\033[0m"
-#define MAX_REP_VAL 8388607 
-#define MIN_REP_VAL -8388608 
 
 class Fixed {
 	public:
@@ -50,6 +48,10 @@ class Fixed {
 	private:
   		int fp_value;
   		static const int frac;
+		long getRawBitsLong(void) const;
+		static bool checkRange(const long& n, const int& type);
+		static bool checkRange(const int& n, const char& sign);
+		static void error_print(const int& error_num);
 };
 
 std::ostream& operator<<(std::ostream& os, const Fixed& fixed);

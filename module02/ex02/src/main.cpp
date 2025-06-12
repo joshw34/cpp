@@ -75,8 +75,10 @@ int main() {
 
 
 	std::cout << GREEN << "\nError Handling:" << RESET << std::endl;
-	Fixed max_fix(MAX_REP_VAL);
-	Fixed min_fix(MIN_REP_VAL);
+	Fixed max_fix;
+	max_fix.setRawBits(INT_MAX);
+	Fixed min_fix;
+	min_fix.setRawBits(INT_MIN);
 	Fixed ten(10);
 	Fixed zero;
 
@@ -84,9 +86,9 @@ int main() {
 	          << ten << " / " << zero << " = " << ten / zero << std::endl;
 
 	std::cout << "\nConstructor Overflow:\n"
-		      << Fixed(MAX_REP_VAL + 1) << std::endl;
+		      << Fixed(INT_MAX) << std::endl;
 	std::cout << "\nConstructor Underflow:\n"
-		      << Fixed(MIN_REP_VAL - 1) << std::endl;
+		      << Fixed(INT_MIN) << std::endl;
 
 	std::cout << std::fixed << std::setprecision(0);
 
@@ -116,9 +118,9 @@ int main() {
 		      << max_fix << "++\n" << max_fix++ << std::endl;
 
 	std::cout << "\nPre-Decrement Underflow:\n"
-		      << "++" << max_fix << "\n" << ++max_fix << std::endl;
+		      << "--" << min_fix << "\n" << --min_fix << std::endl;
 	std::cout << "\nPost-Decrement Underflow:\n"
-		      << max_fix << "++\n" << max_fix++ << std::endl;
+		      << min_fix << "--\n" << min_fix-- << std::endl;
 
 	return 0;
 }

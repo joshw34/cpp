@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jwhitley <jwhitley@student.42nice.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/12 09:24:46 by jwhitley          #+#    #+#             */
+/*   Updated: 2025/06/12 12:24:24 by jwhitley         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/Fixed.hpp"
 
 const int Fixed::frac = 8;
@@ -8,22 +20,20 @@ Fixed::Fixed() : fp_value(0) {
 
 Fixed::Fixed(const int input) {
 	//std::cout << "Int Constructor called" << std::endl;
-	if (input > MAX_REP_VAL || input < MIN_REP_VAL) {
-		std::cerr << RED << "Error value out of range for Fixed Point. Setting value to 0" << RESET << std::endl;
+	long check = static_cast<long>(input) << this->frac;
+	if (!checkRange(check, 0))
 		this->fp_value = 0;
-		return;
-	}
-	this->fp_value = input << this->frac;	
+	else
+		this->fp_value = static_cast<int>(check);	
 }
 
 Fixed::Fixed(const float input) {
 	//std::cout << "Float Constructor called" << std::endl;
-	if (input > MAX_REP_VAL || input < MIN_REP_VAL) {
-		std::cerr << RED << "Error value out of range for Fixed Point. Setting value to 0" << RESET << std::endl;
+	long check = static_cast<long>(roundf(input * (1 << this->frac)));
+	if (!checkRange(check, 0))
 		this->fp_value = 0;
-		return;
-	}
-	this->fp_value = static_cast<int>(roundf(input * (1 << this->frac)));
+	else
+		this->fp_value = static_cast<int>(check);
 }
 
 Fixed::Fixed(const Fixed& copy) {
@@ -43,6 +53,11 @@ void Fixed::setRawBits(const int raw) {
 int Fixed::getRawBits() const {
 	//std::cout << "getRawBits member function called" << std::endl;
 	return this->fp_value;	
+}
+
+long Fixed::getRawBitsLong() const {
+	//std::cout << "getRawBitsLong member function called" << std::endl;
+	return static_cast<long>(this->fp_value);	
 }
 
 int Fixed::toInt() const {
@@ -91,90 +106,70 @@ bool Fixed::operator!=(const Fixed& comp) const {
 }
 
 Fixed Fixed::operator+(const Fixed& add) const {
-	double result = (this->toFloat() + add.toFloat());
-	if (result < MIN_REP_VAL || result > MAX_REP_VAL) {
-		std::cerr << RED << "Result out of range. Value unchanged" << RESET << std::endl;
+	long result = this->getRawBitsLong() + add.getRawBits();
+	if (!checkRange(result, 2))
 		return *this;
-	}
-	Fixed	ret;
-	ret.setRawBits(this->getRawBits() + add.getRawBits());
+	Fixed ret;
+	ret.setRawBits(static_cast<int>(result));
 	return ret;
 }
 
 Fixed Fixed::operator-(const Fixed& sub) const {
-	double result = (this->toFloat() - sub.toFloat());
-	if (result < MIN_REP_VAL || result > MAX_REP_VAL) {
-		std::cerr << RED << "Result out of range. Value unchanged" << RESET << std::endl;
+	long result = this->getRawBitsLong() - sub.getRawBits();
+	if (!checkRange(result, 2))
 		return *this;
-	}
-	Fixed	ret;
-	ret.setRawBits(this->getRawBits() - sub.getRawBits());
+	Fixed ret;
+	ret.setRawBits(static_cast<int>(result));
 	return ret;
 }
 
 Fixed Fixed::operator*(const Fixed& mult) const {
-	double result = (this->toFloat() * mult.toFloat());
-	if (result < MIN_REP_VAL || result > MAX_REP_VAL) {
-		std::cerr << RED << "Result out of range. Value unchanged" << RESET << std::endl;
+	long result = (this->getRawBitsLong() * mult.getRawBits()) >> this->frac;
+	if (!checkRange(result, 2))
 		return *this;
-	}
-	Fixed	ret;
-	ret.setRawBits((this->getRawBits() * mult.getRawBits()) >> this->frac);
+	Fixed ret;
+	ret.setRawBits(static_cast<int>(result));
 	return ret;
 }
 
 Fixed Fixed::operator/(const Fixed& div) const {
 	if (div == 0) {
-		std::cerr << RED << "\nError: division by 0 attempted. Value unchanged" << RESET << std::endl;
+		error_print(1);
 		return *this;
 	}
-	double result = (this->toFloat() / div.toFloat());
-	if (result < MIN_REP_VAL || result > MAX_REP_VAL) {
-		std::cerr << RED << "Result out of range. Value unchanged" << RESET << std::endl;
+	long result = (this->getRawBitsLong() << this->frac) / div.getRawBits();
+	if (!checkRange(result, 2))
 		return *this;
-	}
-	Fixed	ret;
-	ret.setRawBits((this->getRawBits() << this->frac) / div.getRawBits());
+	Fixed ret;
+	ret.setRawBits(static_cast<int>(result));
 	return ret;
 }
 
 Fixed& Fixed::operator++() {
-	long result = this->fp_value + 1;
-	if (result << 8 > MAX_REP_VAL) {
-		std::cerr << RED << "Result out of range. Value unchanged" << RESET << std::endl;
+	if (!checkRange(this->fp_value, '+'))
 		return *this;
-	}
 	this->fp_value += 1;
 	return *this;
 }
 
 Fixed Fixed::operator++(int) {
-	long result = this->fp_value + 1;
-	if (result << 8 > MAX_REP_VAL) {
-		std::cerr << RED << "Result out of range. Value unchanged" << RESET << std::endl;
+	if (!checkRange(this->fp_value, '+'))
 		return *this;
-	}
 	Fixed	temp(*this);
 	this->fp_value += 1;
 	return temp;
 }
 
 Fixed& Fixed::operator--() {
-	long result = this->fp_value - 1;
-	if (result << 8 < MIN_REP_VAL) {
-		std::cerr << RED << "Result out of range. Value unchanged" << RESET << std::endl;
+	if (!checkRange(this->fp_value, '-'))
 		return *this;
-	}
 	this->fp_value -= 1;
 	return *this;
 }
 
 Fixed Fixed::operator--(int) {
-	long result = this->fp_value - 1;
-	if (result << 8 < MIN_REP_VAL) {
-		std::cerr << RED << "Result out of range. Value unchanged" << RESET << std::endl;
+	if (!checkRange(this->fp_value, '-'))
 		return *this;
-	}
 	Fixed	temp(*this);
 	this->fp_value -= 1;
 	return temp;
@@ -194,6 +189,32 @@ Fixed& Fixed::max(Fixed& a, Fixed& b) {
 
 const Fixed& Fixed::max(const Fixed& a, const Fixed& b) {
 	return (a >= b) ? a : b;
+}
+
+bool Fixed::checkRange(const long& n, const int& type) {
+	if (n < INT_MIN || n > INT_MAX) {
+		error_print(type);
+		return false;
+	}
+	return true;
+}
+
+bool Fixed::checkRange(const int& n, const char& sign) {
+	if ((sign == '+' && n >= INT_MAX) || (sign == '-' && n <= INT_MIN)) {
+		error_print(2);
+		return false;
+	}
+	return true;
+}
+
+void Fixed::error_print(const int& error_num) {
+	std::string errors[3];
+
+	errors[0] = "Error: value out of range for Fixed Point. Setting value to 0"; 
+	errors[1] = "\nError: division by 0 attempted. Value unchanged"; 
+	errors[2] = "Error: Result out of range. Value unchanged"; 
+
+	std::cerr << RED << errors[error_num] << RESET << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& os, const Fixed& fixed) {
