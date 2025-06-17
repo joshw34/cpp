@@ -6,7 +6,7 @@ static bool check_value(const Fixed& abc, const Fixed& total) {
 	return diff >= -1 && diff <= 1; 
 }
 
-static Fixed getArea(const Point a, const Point b, const Point c) {
+static Fixed getArea(const Point& a, const Point& b, const Point& c) {
 	//Area = |x1(y2-y3) + x2(y3-y1) + x3(y1-y2)| / 2
 	Fixed va(a.getX() * (b.getY() - c.getY()));
 	Fixed vb(b.getX() * (c.getY() - a.getY()));

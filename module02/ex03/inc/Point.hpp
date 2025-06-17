@@ -5,8 +5,8 @@
 #include <cstdlib>
 #include <string>
 #include <climits>
-#include <sstream>
-#include <limits>
+#include <sstream> // IWYU pragma: keep
+#include <limits> // IWYU pragma: keep
 #include "Fixed.hpp"
 
 #define RED "\033[31m"
