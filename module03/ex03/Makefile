@@ -1,4 +1,4 @@
-NAME = fragtrap
+NAME = diamondtrap
 
 SRC_DIR = ./src
 INC_DIR = ./inc
@@ -7,6 +7,7 @@ SRC_FILES =	$(SRC_DIR)/main.cpp \
 			$(SRC_DIR)/ClapTrap.cpp \
 			$(SRC_DIR)/ScavTrap.cpp \
 			$(SRC_DIR)/FragTrap.cpp \
+			$(SRC_DIR)/DiamondTrap.cpp \
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 

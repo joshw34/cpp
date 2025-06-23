@@ -1,5 +1,4 @@
-#include "../inc/FragTrap.hpp"
-#include "../inc/ScavTrap.hpp"
+#include "../inc/DiamondTrap.hpp"
 
 #define SPACE std::cout << std::endl;
 #define WRITE std::cout <<
@@ -7,48 +6,47 @@
 
 int main() {
 	{
-		FragTrap a("A");
-		a.printStatus();
+		WRITE "Default Constructor" END
+		DiamondTrap def;
 		SPACE
 
-		FragTrap b;
-		b.printStatus();
+		WRITE "Name Constructor" END
+		DiamondTrap a("A");
 		SPACE
 
-		WRITE "default = a" END
-		b = a;
-		b.printStatus();
+		WRITE "Copy Constructor:" END 
+		DiamondTrap b(a);
 		SPACE
 
-		FragTrap c(a);
-		c.printStatus();
+		WRITE "Copy Operator (default = a)" END
+		def = a;
 		SPACE
 	}
-	SPACE
-	WRITE "************************" END
-	SPACE
+	SPACE WRITE "******************************" END SPACE
 	{
-		FragTrap frag("Frag");
-		frag.printStatus();
+		DiamondTrap a("A");
+		DiamondTrap b("B");
 		SPACE
 
-		ScavTrap scav("Scav");
-		scav.printStatus();
+		a.printStatus();
+		b.printStatus();
 		SPACE
 
-		for (int i = 0; i < 4; i++) {
-			scav.attack("Frag");
-			frag.takeDamage(20);
-			scav.printStatus();
-			frag.printStatus();
-			SPACE
-			frag.attack("Scav");
-			scav.takeDamage(30);
-			scav.printStatus();
-			frag.printStatus();
-			SPACE
-		}
-		frag.highFiveGuys();
+		a.guardGate();
+		a.highFiveGuys();
+		a.whoAmI();
+		SPACE
+
+		b.guardGate();
+		b.highFiveGuys();
+		b.whoAmI();
+		SPACE
+
+		a.attack("B");
+		b.takeDamage(30);
+		SPACE
+
+		b.beRepaired(40);
 		SPACE
 	}
 }

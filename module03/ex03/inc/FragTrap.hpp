@@ -8,7 +8,7 @@
 #define BOLD "\033[1m"
 #define RESET "\033[0m"
 
-class FragTrap : public ClapTrap {
+class FragTrap : virtual public ClapTrap {
 	public:
 		FragTrap();
 		FragTrap(const std::string& name);

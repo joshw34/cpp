@@ -9,7 +9,7 @@
 #define BOLD "\033[1m"
 #define RESET "\033[0m"
 
-class ScavTrap : public ClapTrap {
+class ScavTrap : virtual public ClapTrap {
 	public:
 		ScavTrap();
 		ScavTrap(const std::string& name);

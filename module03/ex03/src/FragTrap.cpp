@@ -32,5 +32,5 @@ FragTrap& FragTrap::operator=(const FragTrap& src) {
 }
 
 void FragTrap::highFiveGuys() {
-	std::cout << GREEN << "High Five Guys!" << RESET << std::endl;
+	std::cout << GREEN << this->name << ": High Five Guys!" << RESET << std::endl;
 }
