@@ -18,7 +18,7 @@ DiamondTrap::DiamondTrap(const std::string& name) : ClapTrap(name + "_clap_name"
 	this->maxHp = 100;
 }
 
-DiamondTrap::DiamondTrap(const DiamondTrap& src) : ClapTrap(src.name + "_clap_name"), ScavTrap(), FragTrap() {
+DiamondTrap::DiamondTrap(const DiamondTrap& src) : ClapTrap(src.ClapTrap::name), ScavTrap(), FragTrap() {
 	std::cout << BOLD << "DiamondTrap Copy Constructor called to copy " << src.name << RESET <<std::endl;
 	this->name = src.name;
 	this->hp = src.hp;
