@@ -1,15 +1,15 @@
 #include "../inc/Ice.hpp"
 
 Ice::Ice() : AMateria("ice") {
-	std::cout << BOLD << "Ice Default Constructor called" << RESET << std::endl;
+	//std::cout << BOLD << "Ice Default Constructor called" << RESET << std::endl;
 }
 
 Ice::Ice(const Ice& src) : AMateria(src) {
-	std::cout << BOLD << "Ice Copy Constructor called" << RESET << std::endl;
+	//std::cout << BOLD << "Ice Copy Constructor called" << RESET << std::endl;
 }
 
 Ice::~Ice() {
-	std::cout << BOLD << "Ice Destructor called" << RESET << std::endl;
+	//std::cout << BOLD << "Ice Destructor called" << RESET << std::endl;
 }
 
 Ice& Ice::operator=(const Ice& src) {

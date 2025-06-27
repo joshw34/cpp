@@ -1,16 +1,15 @@
 #include "../inc/Cure.hpp"
 
-
 Cure::Cure() : AMateria("cure") {
-	std::cout << BOLD << "Cure Default Constructor called" << RESET << std::endl;
+	//std::cout << BOLD << "Cure Default Constructor called" << RESET << std::endl;
 }
 
 Cure::Cure(const Cure& src) : AMateria(src) {
-	std::cout << BOLD << "Cure Copy Constructor called" << RESET << std::endl;
+	//std::cout << BOLD << "Cure Copy Constructor called" << RESET << std::endl;
 }
 
 Cure::~Cure() {
-	std::cout << BOLD << "Cure Destructor called" << RESET << std::endl;
+	//std::cout << BOLD << "Cure Destructor called" << RESET << std::endl;
 }
 
 Cure& Cure::operator=(const Cure& src) {

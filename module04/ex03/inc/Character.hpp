@@ -24,11 +24,22 @@ class Character : public ICharacter {
 	private:
 		std::string name;
 		static const int matMax = 4;
-		AMateria* spells[matMax];
-		static void initSpellArray(AMateria* spells[]);
-		static void copySpellArray(AMateria* spells[], AMateria* const src[]);
-		static void clearSpellArray(AMateria* spells[]);
+		AMateria* materia[matMax];
 
+		struct s_droplist {
+			AMateria* materia;
+			s_droplist* next;
+			s_droplist(AMateria* m);
+		};
+
+		static void initMatArray(AMateria* materia[]);
+		static void copyMatArray(AMateria* materia[], AMateria* const src[]);
+		static void clearMatArray(AMateria* materia[]);
+		static bool checkIdx(int idx);
+
+		s_droplist*	droppedMateria;
+		static void addToDroplist(s_droplist*& droppedMateria, AMateria* m);
+		static void clearDroplist(s_droplist*& droppedMateria);
 };
 
 #endif
