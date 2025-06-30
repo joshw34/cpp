@@ -16,9 +16,8 @@ Fixed::Fixed(const float input) {
 	this->fp_value = static_cast<int>(roundf(input * (1 << this->frac)));
 }
 
-Fixed::Fixed(const Fixed& copy) {
+Fixed::Fixed(const Fixed& copy) : fp_value(copy.fp_value) {
 	std::cout << "Copy Constructor called" << std::endl;
-	*this = copy;
 }
 
 Fixed::~Fixed() {

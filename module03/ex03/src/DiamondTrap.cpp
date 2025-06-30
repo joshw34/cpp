@@ -42,7 +42,7 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& src) {
 
 
 void DiamondTrap::attack(const std::string& target) {
-	std::cout << this->name;
+	std::cout << "DiamondTrap" << this->name;
 	if (this->hp <= 0)
 		std::cout << RED << " cannot attack: 0hp" << RESET << std::endl;
 	else if (this->energy <= 0)
