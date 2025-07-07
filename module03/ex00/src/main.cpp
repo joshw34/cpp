@@ -1,14 +1,12 @@
 #include "../inc/ClapTrap.hpp"
 
-#define SPACE std::cout << std::endl;
-
 int main() {
 	{
 		ClapTrap a("A");
 		a.printStatus();
 		ClapTrap b(a);
 		b.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		ClapTrap c("C");
 		c.printStatus();
@@ -19,56 +17,56 @@ int main() {
 		d = c;
 		c.printStatus();
 		d.printStatus();
-		SPACE
+		std::cout << std::endl;
 	}
-	std::cout << "\n" << std::endl;
+	std::cout << "\n******************************\n" << std::endl;
 	{
 		ClapTrap a("A");
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.beRepaired(1);
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 		
 		a.attack("B");
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.takeDamage(8);
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.beRepaired(8);
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.takeDamage(9);
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.beRepaired(10);
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		for (int i = 0; i < 7; i++) {
 			a.attack("B");
 		}
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.attack(("B"));
 		a.beRepaired((5));
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.takeDamage(10);
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.attack("B");
 		a.beRepaired(10);
 		a.takeDamage(10);
-		SPACE
+		std::cout << std::endl;
 	}
 }

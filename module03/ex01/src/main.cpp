@@ -1,55 +1,49 @@
 #include "../inc/ScavTrap.hpp"
 #include <fstream>
 
-#define SPACE std::cout << std::endl;
-#define WRITE std::cout <<
-#define END << std::endl;
-
 int main() {
 	{
 		ScavTrap a("A");
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		ScavTrap b;
 		b.printStatus();
-		SPACE
+		std::cout << std::endl;
 
-		WRITE "default = a" END
+		std::cout << "default = a" << std::endl;
 		b = a;
 		b.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		ScavTrap c(a);
 		c.printStatus();
-		SPACE
+		std::cout << std::endl;
 	}
-	SPACE
-	WRITE "************************" END
-	SPACE
+	std::cout << "\n************************\n" << std::endl;
 	{
 		ScavTrap a("A");
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		ScavTrap b("B");
 		b.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		ScavTrap c("C");
 		c.printStatus();
 		c.guardGate();
-		SPACE
+		std::cout << std::endl;
 
 		a.attack("B");
 		b.takeDamage(20);
 		a.printStatus();
 		b.printStatus();
-		SPACE
+		std::cout << std::endl;
 		
 		b.beRepaired(10);
 		b.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		for (int i = 0; i < 6; i++) {
 			b.attack("A");
@@ -57,9 +51,9 @@ int main() {
 		}
 		a.printStatus();
 		b.printStatus();
-		SPACE
+		std::cout << std::endl;
 
-		WRITE "B now has 0 energy points" END
+		std::cout << "B now has 0 energy points" << std::endl;
 		std::ofstream null_stream("/dev/null");
 		std::streambuf* orig = std::cout.rdbuf();
 		std::cout.rdbuf(null_stream.rdbuf());
@@ -70,16 +64,16 @@ int main() {
 		std::cout.rdbuf(orig);
 		a.printStatus();
 		b.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.beRepaired(10);
 		a.attack("B");
 		a.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		b.beRepaired(10);
 		b.attack("A");
 		b.takeDamage(1000);
-		SPACE
+		std::cout << std::endl;
 	}
 }

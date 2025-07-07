@@ -1,52 +1,48 @@
 #include "../inc/DiamondTrap.hpp"
 
-#define SPACE std::cout << std::endl;
-#define WRITE std::cout <<
-#define END << std::endl;
-
 int main() {
 	{
-		WRITE "Default Constructor" END
+		std::cout << "Default Constructor" << std::endl;
 		DiamondTrap def;
-		SPACE
+		std::cout << std::endl;
 
-		WRITE "Name Constructor" END
+		std::cout << "Name Constructor" << std::endl;
 		DiamondTrap a("A");
-		SPACE
+		std::cout << std::endl;
 
-		WRITE "Copy Constructor:" END 
+		std::cout << "Copy Constructor:" << std::endl; 
 		DiamondTrap b(a);
-		SPACE
+		std::cout << std::endl;
 
-		WRITE "Copy Operator (default = a)" END
+		std::cout << "Copy Operator (default = a)" << std::endl;
 		def = a;
-		SPACE
+		std::cout << std::endl;
 	}
-	SPACE WRITE "******************************" END SPACE
+	std::cout << "\n******************************\n" << std::endl;
 	{
 		DiamondTrap a("A");
 		DiamondTrap b("B");
-		SPACE
+		std::cout << std::endl;
 
 		a.printStatus();
 		b.printStatus();
-		SPACE
+		std::cout << std::endl;
 
 		a.guardGate();
 		a.highFiveGuys();
 		a.whoAmI();
-		SPACE
+		std::cout << std::endl;
 
 		b.guardGate();
 		b.highFiveGuys();
 		b.whoAmI();
-		SPACE
+		std::cout << std::endl;
 
 		a.attack("B");
 		b.takeDamage(30);
-		SPACE
+		std::cout << std::endl;
 
 		b.beRepaired(40);
-		SPACE
+		std::cout << std::endl;
 	}
 }
