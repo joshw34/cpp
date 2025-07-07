@@ -18,19 +18,14 @@ class DiamondTrap : public ScavTrap, public FragTrap {
 
 		DiamondTrap& operator=(const DiamondTrap& src);
 
-		void attack(const std::string& target);
-		void takeDamage(unsigned int amount);
-		void beRepaired(unsigned int amount);
+		using ScavTrap::attack;
 
-		void guardGate();
-		void highFiveGuys();
 		void whoAmI();
 
 		void printStatus() const;
 
 	private:
 		std::string name;
-
 };
 
 #endif
