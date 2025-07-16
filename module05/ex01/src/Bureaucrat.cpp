@@ -1,3 +1,4 @@
+#include "../inc/Form.hpp"
 #include "../inc/Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat() : name("default"), grade(MIN_GRADE) {
@@ -16,7 +17,8 @@ Bureaucrat::Bureaucrat(const std::string name, const int grade) : name(name) {
 };
 
 Bureaucrat::Bureaucrat(const Bureaucrat& src) : name(src.getName()), grade(src.getGrade()) {
-    std::cout << BOLD << "Bureaucrat Copy Constructor Called to copy " << name << RESET << std::endl;
+    std::cout << BOLD << "Bureaucrat Copy Constructor Called to copy " << name
+              << RESET << std::endl;
 };
 
 Bureaucrat::~Bureaucrat() {
@@ -48,6 +50,16 @@ void Bureaucrat::decGrade() {
     if (grade == MIN_GRADE)
         throw GradeTooLowException();
     this->grade++;
+}
+
+void Bureaucrat::signForm(Form& f) const {
+    try {
+        f.beSigned(*this);
+        std::cout << GREEN << name << " signed " << f.getName() << RESET << std::endl;
+    } catch (std::exception& e) {
+        std::cout << name << " couldn't sign " << f.getName()
+                  << " because their grade is too low" << RESET << std::endl;
+    }
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw() {

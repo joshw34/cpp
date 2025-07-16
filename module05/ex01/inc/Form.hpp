@@ -1,23 +1,28 @@
 #pragma once
 
 #include "../inc/Colors.hpp" // IWYU pragma: keep
+#include <string>
+#include <ostream>
 #include <iostream> // IWYU pragma: keep
 #include <exception>
-#include <string>
 
-class Bureaucrat {
+class Bureaucrat;
+
+class Form {
     public:
-        Bureaucrat();
-        Bureaucrat(const std::string name, const int grade);
-        Bureaucrat(const Bureaucrat& src);
-        ~Bureaucrat();
-    
-        Bureaucrat& operator=(const Bureaucrat& src);        
+        Form();
+        Form(std::string name, int signingGrade, int execGrade);
+        Form(const Form& src);
+        ~Form();
 
-        int getGrade() const;
+        Form& operator=(const Form& src);
+
         const std::string& getName() const;
-        void incGrade();
-        void decGrade();
+        bool getSignedStatus() const;
+        int getSigningGrade() const;
+        int getExecGrade() const;
+
+        void beSigned(const Bureaucrat& b);
 
         class GradeTooHighException : public std::exception {
             public:
@@ -31,9 +36,11 @@ class Bureaucrat {
 
     private:
         const std::string name;
-        int grade;
+        bool  signedStatus;
+        const int signingGrade;
+        const int execGrade;
         static const int MAX_GRADE = 1;
         static const int MIN_GRADE = 150;
 };
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);
+std::ostream& operator<<(std::ostream& os, const Form& f);

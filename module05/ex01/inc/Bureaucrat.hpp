@@ -1,9 +1,12 @@
 #pragma once
 
 #include "../inc/Colors.hpp" // IWYU pragma: keep
+#include <string>
+#include <ostream>
 #include <iostream> // IWYU pragma: keep
 #include <exception>
-#include <string>
+
+class Form;
 
 class Bureaucrat {
     public:
@@ -18,6 +21,8 @@ class Bureaucrat {
         const std::string& getName() const;
         void incGrade();
         void decGrade();
+
+        void signForm(Form& f) const;
 
         class GradeTooHighException : public std::exception {
             public:
