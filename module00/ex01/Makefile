@@ -6,13 +6,12 @@ INC_DIR = ./inc
 SRC_FILES =	$(SRC_DIR)/main.cpp \
 			$(SRC_DIR)/Contact.cpp \
 			$(SRC_DIR)/PhoneBook.cpp \
-			$(SRC_DIR)/PhoneBook_utils.cpp \
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 REMOVE = rm -f
 CC = clang++
-CFLAGS = -Wall -Werror -Wextra -std=c++98 -I$(INC_DIR)
+CFLAGS = -Wall -Werror -Wextra -Wno-unused-result -std=c++98 -I$(INC_DIR)
 
 all: $(NAME)
 

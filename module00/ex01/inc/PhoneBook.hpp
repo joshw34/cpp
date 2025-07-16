@@ -15,24 +15,28 @@
 #include <cstdlib>
 #include <unistd.h>
 
-bool	is_valid_input(std::string &input, const std::string &var);
-bool	is_valid_index(int &c_ind, std::string &input, int &total);
-void	press_enter(std::string err_msg, bool flush_input);
 
 class	PhoneBook {
-	private:
-		int		total;
-		int		index;
-		void	list_contacts();
-		Contact data[8];
-
-	
 	public:
 		PhoneBook();
 		~PhoneBook();
 
-		void	add_contact();
-		void	find_contact();
+        void run();
+
+	private:
+		int total;
+		int index;
+		Contact data[8];
+
+		void addContact();
+		void findContact();
+		void listContacts();
+
+        bool isValidInput(std::string &input, const std::string &var);
+        bool isValidIndex(int &c_ind, std::string &input, int &total);
+        void pressEnter(std::string err_msg, bool flush_input);
+        bool isOnlyWhitespace(std::string &input);
+        bool isValidNumber(std::string &input);
 };
 
 #endif
