@@ -4,6 +4,7 @@ SRC_DIR = ./src
 INC_DIR = ./inc
 
 SRC_FILES =	$(SRC_DIR)/main.cpp \
+			$(SRC_DIR)/Bureaucrat.cpp
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
