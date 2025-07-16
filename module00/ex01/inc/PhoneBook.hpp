@@ -1,5 +1,5 @@
-#ifndef PHONE_BOOK_CPP
-#define PHONE_BOOK_CPP
+#ifndef PHONE_BOOK_HPP
+#define PHONE_BOOK_HPP
 
 #define RED "\033[31m"
 #define GREEN "\033[32m"
