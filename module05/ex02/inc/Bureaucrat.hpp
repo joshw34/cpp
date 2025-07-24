@@ -6,7 +6,7 @@
 #include <iostream> // IWYU pragma: keep
 #include <exception>
 
-class AForm;
+class Form;
 
 class Bureaucrat {
     public:
@@ -22,7 +22,7 @@ class Bureaucrat {
         void incGrade();
         void decGrade();
 
-        void signForm(AForm& f) const;
+        void signForm(Form& f) const;
 
         class GradeTooHighException : public std::exception {
             public:

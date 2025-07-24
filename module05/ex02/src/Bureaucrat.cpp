@@ -1,4 +1,4 @@
-#include "../inc/AForm.hpp"
+#include "../inc/Form.hpp"
 #include "../inc/Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat() : name("default"), grade(MIN_GRADE) {
@@ -52,12 +52,12 @@ void Bureaucrat::decGrade() {
     this->grade++;
 }
 
-void Bureaucrat::signForm(AForm& f) const {
+void Bureaucrat::signForm(Form& f) const {
     try {
         f.beSigned(*this);
         std::cout << GREEN << name << " signed " << f.getName() << RESET << std::endl;
     } catch (std::exception& e) {
-        std::cout << name << " couldn't sign " << f.getName()
+        std::cout << RED << name << " couldn't sign " << f.getName()
                   << " because their grade is too low" << RESET << std::endl;
     }
 }

@@ -1,12 +1,12 @@
-#include "../inc/AForm.hpp"
+#include "../inc/Form.hpp"
 #include "../inc/Bureaucrat.hpp"
 
-AForm::AForm() : name("defaultForm"), signedStatus(false), signingGrade(MAX_GRADE),
+Form::Form() : name("defaultForm"), signedStatus(false), signingGrade(MAX_GRADE),
     execGrade(MAX_GRADE) {
     std::cout << BOLD << "Default Form Constructor called" << RESET << std::endl;
 }
 
-AForm::AForm(const std::string name, const int signingGrade, const int execGrade)
+Form::Form(const std::string name, const int signingGrade, const int execGrade)
     : name(name), signedStatus(false), signingGrade(signingGrade), execGrade(execGrade) {
     std::cout << BOLD << "Form Constructor called for " << name << RESET << std::endl;
 
@@ -16,54 +16,56 @@ AForm::AForm(const std::string name, const int signingGrade, const int execGrade
         throw GradeTooLowException();
 }
 
-AForm::AForm(const AForm& src) : name(src.getName()), signedStatus(src.getSignedStatus()),
+Form::Form(const Form& src) : name(src.getName()), signedStatus(src.getSignedStatus()),
     signingGrade(src.getSigningGrade()), execGrade(src.getExecGrade()) {
     std::cout << BOLD << "Form Copy Constructor called for " << name << RESET << std::endl;
 }
 
-AForm::~AForm() {
+Form::~Form() {
     std::cout << BOLD << "Form Destructor called for " << name << RESET << std::endl;
 }
 
-AForm& AForm::operator=(const AForm&) {
+Form& Form::operator=(const Form&) {
     //Nothing to copy
     return *this;
 }
 
-const std::string& AForm::getName() const {
+const std::string& Form::getName() const {
     return this->name;
 }
 
-bool AForm::getSignedStatus() const {
+bool Form::getSignedStatus() const {
     return this->signedStatus;
 }
 
-int AForm::getSigningGrade() const {
+int Form::getSigningGrade() const {
     return this->signingGrade;
 }
 
-int AForm::getExecGrade() const {
+int Form::getExecGrade() const {
     return this->execGrade;
 }
 
-void AForm::beSigned(const Bureaucrat& b) {
+void Form::beSigned(const Bureaucrat& b) {
     if (this->signingGrade < b.getGrade())
         throw GradeTooLowException();
     this->signedStatus = true;
 }
 
-const char* AForm::GradeTooHighException::what() const throw() {
-    return "Error: Grade must not be below 1";
+const char* Form::GradeTooHighException::what() const throw() {
+    return "Error: Grade Too High";
 }
 
-const char* AForm::GradeTooLowException::what() const throw() {
-    return "Error: Grade must not be above 150";
+const char* Form::GradeTooLowException::what() const throw() {
+    return "Error: Grade Too Low";
 }
 
-std::ostream& operator<<(std::ostream& os, const AForm& f) {
-    os << "Form Name: " << f.getName() << "\n"
+std::ostream& operator<<(std::ostream& os, const Form& f) {
+    os << std::boolalpha
+       << "Form Name: " << f.getName() << "\n"
        << "Signed: " << f.getSignedStatus() << "\n"
        << "Signing Grade: " << f.getSigningGrade() << "\n"
-       << "Execution Grade: " << f.getExecGrade();
+       << "Execution Grade: " << f.getExecGrade()
+       << std::noboolalpha;
     return os;
 }
