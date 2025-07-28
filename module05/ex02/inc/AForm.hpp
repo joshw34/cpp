@@ -8,14 +8,14 @@
 
 class Bureaucrat;
 
-class Form {
+class AForm {
     public:
-        Form();
-        Form(std::string name, int signingGrade, int execGrade);
-        Form(const Form& src);
-        ~Form();
+        AForm();
+        AForm(std::string name, int signingGrade, int execGrade);
+        AForm(const AForm& src);
+        ~AForm();
 
-        Form& operator=(const Form& src);
+        AForm& operator=(const AForm& src);
 
         const std::string& getName() const;
         bool getSignedStatus() const;
@@ -43,4 +43,4 @@ class Form {
         static const int MIN_GRADE = 150;
 };
 
-std::ostream& operator<<(std::ostream& os, const Form& f);
+std::ostream& operator<<(std::ostream& os, const AForm& f);
