@@ -1,68 +1,86 @@
 #include "../inc/Colors.hpp"
 #include "../inc/Bureaucrat.hpp"
-#include "../inc/ShrubberyCreationForm.hpp"
-#include "../inc/RobotomyRequestForm.hpp"
-#include "../inc/PresidentialPardonForm.hpp"
+#include "../inc/ShrubberyCreationForm.hpp" // IWYU pragma: keep
+#include "../inc/RobotomyRequestForm.hpp" // IWYU pragma: keep
+#include "../inc/PresidentialPardonForm.hpp" // IWYU pragma: keep
+#include "../inc/Intern.hpp"
 
 int main() {
-    // Create bureaucrats with different grades
-    Bureaucrat president("President", 1);    // Can do everything
-    Bureaucrat manager("Manager", 25);       // Can do presidential and robotomy
-    Bureaucrat supervisor("Supervisor", 72); // Can do robotomy and shrubbery
-    Bureaucrat intern("Intern", 150);        // Can only sign shrubbery
-
-    std::cout << BLUE ITALIC << "\n=== Bureaucrats Created ===" << RESET << std::endl;
-    std::cout << president << std::endl;
-    std::cout << manager << std::endl;
-    std::cout << supervisor << std::endl;
-    std::cout << intern << "\n" << std::endl;
-
-    // Create all three forms
-    ShrubberyCreationForm shrub("garden");
-    RobotomyRequestForm robot("Bender");
-    PresidentialPardonForm pardon("Arthur Dent");
-
-    std::cout << BLUE ITALIC << "\n=== Forms Created ===" << RESET << std::endl;
-    std::cout << shrub << std::endl << std::endl;
-    std::cout << robot << std::endl << std::endl;
-    std::cout << pardon << std::endl << std::endl;
-
-    // Test signing all forms with appropriate bureaucrats
-    std::cout << BLUE ITALIC << "\n=== Form Signing Test ===" << RESET << std::endl;
-    supervisor.signForm(shrub);  // Grade 72, needs 145 ✓
-    supervisor.signForm(robot);  // Grade 72, needs 72 ✓
-    manager.signForm(pardon);    // Grade 25, needs 25 ✓
-
-    // Test signing failures
-    std::cout << BLUE ITALIC << "\n=== Signing Failure Test ===" << RESET << std::endl;
-    intern.signForm(robot); // Grade 150, needs 72 ✗
-    supervisor.signForm(pardon); // Grade 72, needs 25 ✗
-
-    // Test executing all forms
-    std::cout << BLUE ITALIC << "\n=== Testing Form Execution ===" << RESET << std::endl;
-    president.executeForm(shrub);  // Exec grade 137
-    std::cout << "\n";
-    president.executeForm(robot);  // Exec grade 45 (50% chance)
-    std::cout << "\n";
-    president.executeForm(robot);  // Try again for randomness
-    std::cout << "\n";
-    president.executeForm(robot);  // Try again for randomness
-    std::cout << "\n";
-    president.executeForm(robot);  // Try again for randomness
-    std::cout << "\n";
-    president.executeForm(pardon); // Exec grade 5
-
-    // Test execution failures
-    std::cout << BLUE ITALIC << "\n=== Testing Execution Failures ===" << RESET << std::endl;
-    intern.executeForm(shrub); // Grade 150, needs 137 ✗
-    supervisor.executeForm(pardon); // Grade 72, needs 5 ✗
-
-    // Test executing unsigned form
-    std::cout << BLUE ITALIC << "\n=== Testing Unsigned Form Execution ===" << RESET << std::endl;
-    PresidentialPardonForm unsignedPardon("John Doe");
-    president.executeForm(unsignedPardon); // Not signed ✗
-
-    std::cout << GREEN << "\n=== All Tests Completed ===" << RESET << std::endl;
-
+    std::cout << BOLD BLUE ITALIC << "\n=== Testing Intern Class ===" << RESET << "\n";
+    
+    Intern someRandomIntern;
+    std::cout << std::endl;
+    
+    // Create all valid forms, print name and delete
+    std::cout << BOLD BLUE ITALIC << "=== Test 1: Creating Valid Forms ===" << RESET << "\n";
+    try {
+        AForm* shrub = someRandomIntern.makeForm("shrubbery creation", "home");
+        std::cout << "\n";
+        AForm* robot = someRandomIntern.makeForm("robotomy request", "Bender");
+        std::cout << "\n";
+        AForm* pardon = someRandomIntern.makeForm("presidential pardon", "Arthur Dent");
+        
+        std::cout << BLUE ITALIC << "\nSuccessfully created all forms:" << RESET << "\n";
+        std::cout << *shrub << "\n\n";
+        std::cout << *robot << "\n\n";
+        std::cout << *pardon << "\n\n";
+        
+        std::cout << BLUE ITALIC << "\nDelete all forms:\n" << RESET;
+        delete shrub;
+        delete robot;
+        delete pardon;
+    } catch (const Intern::FormNotCreatedException& e) {
+        std::cout << RED << "Unexpected exception: " << e.what() << RESET << std::endl;
+    }
+    
+    // Try to create invalid forms (should print error messge and throw exception)
+    std::cout << BOLD BLUE ITALIC << "\n=== Test 2: Testing Invalid Form Names ===\n" << RESET;
+    
+    std::string invalidForms[] = {
+        "invalid form",
+        "shrubbery request",  // Wrong name
+        "robot request",      // Wrong name
+        "pardon form",        // Wrong name
+        ""                    // Empty string
+    };
+    
+    for (int i = 0; i < 5; i++) {
+        try {
+            std::cout << "Trying to create: \"" << invalidForms[i] << "\"" << std::endl;
+            AForm* form = someRandomIntern.makeForm(invalidForms[i], "target");
+            // Lines below should not execute
+            std::cout << RED << "ERROR: Should have thrown exception!" << RESET << std::endl;
+            delete form;
+        } catch (const Intern::FormNotCreatedException& e) {
+            std::cout << YELLOW << "Exception caught: " << e.what() << RESET << std::endl;
+        }
+        std::cout << "\n";
+    }
+    
+    // Create form and test with bureaucrat 
+    std::cout << BOLD BLUE ITALIC << "=== Test 3: Integration with Bureaucrats ===" << RESET << std::endl;
+    try {
+        Bureaucrat president("President", 1);
+        std::cout << "\n";
+        AForm* rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+        std::cout << "\n";
+        
+        std::cout << president << std::endl;
+        std::cout << "\n";
+        std::cout << *rrf << std::endl;
+        std::cout << "\n";
+        
+        president.signForm(*rrf);
+        std::cout << "\n";
+        president.executeForm(*rrf);
+        std::cout << "\n";
+        
+        delete rrf;
+        
+    } catch (const std::exception& e) {
+        std::cout << RED << "Exception in integration test: " << e.what() << RESET << std::endl;
+    }
+    
+    std::cout << BLUE ITALIC << "\n=== All Tests Complete ===" << RESET << std::endl;
     return 0;
 }
