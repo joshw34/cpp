@@ -1,5 +1,5 @@
-NAME = form
-DBG_NAME = form-debug
+NAME = intern
+DBG_NAME = intern-debug
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -11,6 +11,7 @@ SRC_FILES =	$(SRC_DIR)main.cpp \
 			$(SRC_DIR)ShrubberyCreationForm.cpp \
 			$(SRC_DIR)RobotomyRequestForm.cpp \
 			$(SRC_DIR)PresidentialPardonForm.cpp \
+			$(SRC_DIR)Intern.cpp \
 
 OBJ_FILES = $(SRC_FILES:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
 DBG_OBJ_FILES = $(SRC_FILES:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.debug.o)

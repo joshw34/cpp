@@ -7,9 +7,9 @@
 #define RESET "\033[0m"
 
 #include "./Contact.hpp"
-#include <iostream>
-#include <iomanip>
-#include <limits>
+#include <iostream> // IWYU pragma: keep
+#include <iomanip> // IWYU pragma: keep
+#include <limits> // IWYU pragma: keep
 #include <string>
 #include <cstdio>
 #include <cstdlib>
