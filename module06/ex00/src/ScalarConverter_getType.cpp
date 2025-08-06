@@ -1,11 +1,13 @@
 #include "../inc/ScalarConverter.hpp"
 
+const std::string ScalarConverter::pseudo_types[6] = {"-inff", "+inff", "nanf", "-inf", "+inf", "nan"};
+
 bool (*const ScalarConverter::checks[5])(const std::string&) = {
     &isChar, &isPseudo, &isFloat, &isDouble, &isInt
 };
 
 // Checks are ordered to avoid redundant checks and catch invalid input early
-void ScalarConverter::getType(const std::string& input) {
+void ScalarConverter::getInputType(const std::string& input) {
     for (size_t i = 0; i < 5; i++) {
         if (checks[i](input)) {
             input_type = i;
@@ -18,7 +20,7 @@ void ScalarConverter::getType(const std::string& input) {
 // Simplest case, checked first
 bool ScalarConverter::isChar(const std::string& input) {
     if (input.length() == 3 && input[0] == '\'' && input[2] == '\'') {
-        c_val = input[1];
+        c_val = input.at(1);
         return true;
     }
     return false;
@@ -32,7 +34,7 @@ bool ScalarConverter::isPseudo(const std::string& input) {
         return false;
     for (size_t i = 0; i < 6; i++) {
         if (input.compare(pseudo_types[i]) == 0) {
-            p_val = pseudo_types[i].at(0);
+            setPseudoValue(input);
             return true;
         }
     }
@@ -84,6 +86,13 @@ bool ScalarConverter::isNumberType(const std::string& input) {
     if (countChar(input, 'f') == 1 && input.at(input.length() - 1) != 'f')
         return false;
     return true;
+}
+
+void ScalarConverter::setPseudoValue(const std::string& input) {
+    if (input.at(0) == 'n')
+        p_val =  std::numeric_limits<double>::quiet_NaN();
+    else
+        p_val = input.at(0) == '+' ? std::numeric_limits<double>::infinity() : -std::numeric_limits<double>::infinity();
 }
 
 size_t ScalarConverter::countChar(const std::string& input, const char c) {
