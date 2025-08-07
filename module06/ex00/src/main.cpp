@@ -1,8 +1,9 @@
 #include "../inc/ScalarConverter.hpp"
 #include <stdexcept>
+#include <sstream>
 
 int main(int ac, char** av) {
-    if (ac != 2) {
+    /*if (ac != 2) {
         std::cerr << RED << "Error: One argument must be provided" << RESET << std::endl;
         return EXIT_FAILURE;
     }
@@ -14,6 +15,15 @@ int main(int ac, char** av) {
     } catch (std::exception& e) {
         std::cerr << RED << e.what() << RESET << std::endl;
         return EXIT_FAILURE;
+    }*/
+    (void)ac; (void)av;
+    std::ostringstream str;
+    for (int i = -1; i < 130; i++) {
+        std::cout << "Test " << i << "\n--------------------\n";
+        str << i;
+        ScalarConverter::convert(str.str()); 
+        std::cout << "\n";
+        str.str("");
     }
     return EXIT_SUCCESS;
 }

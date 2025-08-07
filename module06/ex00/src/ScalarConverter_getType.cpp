@@ -11,6 +11,7 @@ void ScalarConverter::getInputType(const std::string& input) {
     for (size_t i = 0; i < 5; i++) {
         if (checks[i](input)) {
             input_type = i;
+            getDecPrecision(input);
             return;
         }
     }
@@ -74,6 +75,15 @@ bool ScalarConverter::isInt(const std::string& input) {
         throw Overflow();
     i_val = atoi(input.c_str());
     return true;
+}
+
+void ScalarConverter::getDecPrecision(const std::string& input) {
+    size_t p_pos = input.find_first_of(".");
+    size_t f_pos = input.find_first_of("f");
+    size_t flt = (f_pos == input.npos) ? 0 : 1;
+    size_t precision = (p_pos == input.npos) ? 1 : input.length() - p_pos - 1 - flt; 
+    precision = (precision < 1) ? 1 : precision; //set to 1 if no digits after '.'
+    std::cout << std::fixed << std::setprecision(precision);
 }
 
 bool ScalarConverter::isNumberType(const std::string& input) {

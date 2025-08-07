@@ -11,7 +11,6 @@ void ScalarConverter::convert(const std::string& input) {
     if (input.empty())
         throw InvalidType();
     getInputType(input);
-    std::cout << std::fixed << std::setprecision(1);
     printResult[input_type]();
 }
 

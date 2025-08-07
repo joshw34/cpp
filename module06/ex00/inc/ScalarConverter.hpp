@@ -55,6 +55,7 @@ class ScalarConverter {
         static bool isDouble(const std::string&);
         static bool isInt(const std::string&);
         static bool (*const checks[5])(const std::string&);
+        static void getDecPrecision(const std::string&);
         static bool isNumberType(const std::string&);
         static void setPseudoValue(const std::string&);
         static size_t countChar(const std::string&, const char c);
