@@ -1,13 +1,12 @@
-NAME = serializer
-DBG_NAME = serializer-debug
+NAME = type
+DBG_NAME = type-debug
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 INC_DIR = ./inc/
 
 SRC_FILES =	$(SRC_DIR)main.cpp \
-			$(SRC_DIR)Serializer.cpp \
-			$(SRC_DIR)Data.cpp \
+			$(SRC_DIR)Base.cpp \
 
 OBJ_FILES = $(SRC_FILES:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.o)
 DBG_OBJ_FILES = $(SRC_FILES:$(SRC_DIR)%.cpp=$(OBJ_DIR)%.debug.o)
