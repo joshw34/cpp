@@ -1,31 +1,32 @@
 #pragma once
 
-#include "../inc/Colors.hpp" // IWYU pragma: keep
-#include "Bureaucrat.hpp"
-#include "AForm.hpp"
-#include <string>
 #include <fstream>
-#include <iostream> // IWYU pragma: keep
+#include <iostream>  // IWYU pragma: keep
+#include <string>
+
+#include "../inc/Colors.hpp"  // IWYU pragma: keep
+#include "AForm.hpp"
+#include "Bureaucrat.hpp"
 
 class ShrubberyCreationForm : public AForm {
-    public:
-        ShrubberyCreationForm();
-        ShrubberyCreationForm(const std::string& target);
-        ShrubberyCreationForm(const ShrubberyCreationForm& src);
-        ~ShrubberyCreationForm();
+ public:
+  ShrubberyCreationForm();
+  ShrubberyCreationForm(const std::string& target);
+  ShrubberyCreationForm(const ShrubberyCreationForm& src);
+  ~ShrubberyCreationForm();
 
-        ShrubberyCreationForm& operator=(const ShrubberyCreationForm& src);
+  ShrubberyCreationForm& operator=(const ShrubberyCreationForm& src);
 
-        const std::string& getTarget() const;
+  const std::string& getTarget() const;
 
-        void executeAction() const;
+  void executeAction() const;
 
-        class FileOpenException : public std::exception {
-            public:
-                const char* what() const throw();
-        };
+  class FileOpenException : public std::exception {
+   public:
+    const char* what() const throw();
+  };
 
-    private:
-        std::string target;
-        void printTrees(std::ofstream& output_file) const;
+ private:
+  std::string target;
+  void printTrees(std::ofstream& output_file) const;
 };

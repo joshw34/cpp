@@ -1,19 +1,17 @@
-#ifndef HUMANA_HPP
-#define HUMANA_HPP
+#pragma once
+
+#include <iostream> // IWYU pragma: keep
+#include <string>
 
 #include "./Weapon.hpp"
-#include <string>
-#include <iostream>
 
-class	HumanA {
-	public:
-		HumanA(std::string name, Weapon& w);
-		~HumanA();
-		void attack();
+class HumanA {
+ public:
+  HumanA(std::string name, Weapon& w);
+  ~HumanA();
+  void attack();
 
-	private:
-		std::string name;
-		Weapon& weaponRef;
+ private:
+  std::string name;
+  Weapon& weaponRef;
 };
-
-#endif

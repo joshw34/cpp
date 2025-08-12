@@ -1,22 +1,17 @@
-#ifndef CAT_HPP
-#define CAT_HPP
+#pragma once
+
+#include <iostream>  // IWYU pragma: keep
 
 #include "Animal.hpp"
-#include <iostream> // IWYU pragma: keep
-
-#define GREEN "\033[32m"
-#define BOLD "\033[1m"
-#define RESET "\033[0m"
+#include "Colors.hpp"  // IWYU pragma: keep
 
 class Cat : public Animal {
-	public:
-		Cat();
-		Cat(const Cat& src);
-		~Cat();
+ public:
+  Cat();
+  Cat(const Cat& src);
+  ~Cat();
 
-		Cat& operator=(const Cat& src);
+  Cat& operator=(const Cat& src);
 
-		void makeSound() const;
+  void makeSound() const;
 };
-
-#endif

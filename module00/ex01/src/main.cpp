@@ -1,11 +1,9 @@
 #include "../inc/PhoneBook.hpp"
-#include "../inc/Contact.hpp"
 
-int	main(void)
-{
-	PhoneBook PBook;
+int main(void) {
+  PhoneBook PBook;
 
-    PBook.run();
+  PBook.run();
 
-	return 0;
+  return 0;
 }

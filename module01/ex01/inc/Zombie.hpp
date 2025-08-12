@@ -1,19 +1,16 @@
-#ifndef ZOMBIE_HPP
-#define ZOMBIE_HPP
+#pragma once
 
-#include <iostream>
+#include <iostream> // IWYU pragma: keep
 #include <string>
 
-class	Zombie {
-	public:
-		Zombie();
-		Zombie(std::string name);
-		~Zombie();
-		void	announce(void);
-		void	setName(std::string name);
+class Zombie {
+ public:
+  Zombie();
+  Zombie(std::string name);
+  ~Zombie();
+  void announce(void);
+  void setName(std::string name);
 
-	private:
-		std::string	name;
+ private:
+  std::string name;
 };
-
-#endif 

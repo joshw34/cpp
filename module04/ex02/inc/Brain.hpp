@@ -1,29 +1,23 @@
-#ifndef BRAIN_HPP
-#define BRAIN_HPP
+#pragma once
 
+#include <iostream>  // IWYU pragma: keep
 #include <string>
-#include <iostream> // IWYU pragma: keep
 
-#define RED "\033[31m"
-#define YELLOW  "\033[33m"
-#define BOLD "\033[1m"
-#define RESET "\033[0m"
+#include "Colors.hpp"  // IWYU pragma: keep
 
 class Brain {
-	public:
-		Brain();
-		Brain(const Brain& src);
-		~Brain();
+ public:
+  Brain();
+  Brain(const Brain& src);
+  ~Brain();
 
-		Brain& operator=(const Brain& src);
-		
-		const std::string& getIdea(int index) const;
-		void printIdea(int index, const std::string& type) const;
-		void setIdea(int index, const std::string& newIdea);
+  Brain& operator=(const Brain& src);
 
-	private:
-		static const int brainSize = 100;
-		std::string ideas[brainSize];
+  const std::string& getIdea(int index) const;
+  void printIdea(int index, const std::string& type) const;
+  void setIdea(int index, const std::string& newIdea);
+
+ private:
+  static const int brainSize = 100;
+  std::string ideas[brainSize];
 };
-
-#endif

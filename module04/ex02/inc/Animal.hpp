@@ -1,28 +1,23 @@
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#pragma once
 
+#include <iostream>  // IWYU pragma: keep
 #include <string>
-#include <iostream> // IWYU pragma: keep
 
-#define RED "\033[31m"
-#define BOLD "\033[1m"
-#define RESET "\033[0m"
+#include "Colors.hpp"  // IWYU pragma: keep
 
 class Animal {
-	public:
-		Animal();
-		Animal(const Animal& src);
-		virtual ~Animal();
+ public:
+  Animal();
+  Animal(const Animal& src);
+  virtual ~Animal();
 
-		Animal& operator=(const Animal& src);
+  Animal& operator=(const Animal& src);
 
-		virtual void makeSound() const = 0;
+  virtual void makeSound() const = 0;
 
-		const std::string& getType() const;
+  const std::string& getType() const;
 
-	protected:
-		Animal(const std::string& newType);
-		std::string type;
+ protected:
+  Animal(const std::string& newType);
+  std::string type;
 };
-
-#endif

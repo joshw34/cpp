@@ -1,31 +1,26 @@
-#ifndef CAT_HPP
-#define CAT_HPP
+#pragma once
+
+#include <iostream>  // IWYU pragma: keep
+#include <string>
 
 #include "Animal.hpp"
 #include "Brain.hpp"
-#include <string>
-#include <iostream> // IWYU pragma: keep
-
-#define GREEN "\033[32m"
-#define BOLD "\033[1m"
-#define RESET "\033[0m"
+#include "Colors.hpp"  // IWYU pragma: keep
 
 class Cat : public Animal {
-	public:
-		Cat();
-		Cat(const Cat& src);
-		~Cat();
+ public:
+  Cat();
+  Cat(const Cat& src);
+  ~Cat();
 
-		Cat& operator=(const Cat& src);
+  Cat& operator=(const Cat& src);
 
-		void makeSound() const;
+  void makeSound() const;
 
-		const std::string& getIdea(int index) const;
-		void printIdea(int index) const;
-		void setIdea(int index, const std::string& newIdea);
+  const std::string& getIdea(int index) const;
+  void printIdea(int index) const;
+  void setIdea(int index, const std::string& newIdea);
 
-	private:
-		Brain* brain;
+ private:
+  Brain* brain;
 };
-
-#endif

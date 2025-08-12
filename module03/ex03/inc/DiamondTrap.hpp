@@ -1,31 +1,26 @@
-#ifndef DIAMONDTRAP_HPP
-#define DIAMONDTRAP_HPP
+#pragma once
 
-#include "ScavTrap.hpp"
+#include <iostream>  // IWYU pragma: keep
+
+#include "Colors.hpp"  // IWYU pragma: keep
 #include "FragTrap.hpp"
-#include <iostream> // IWYU pragma: keep
-
-#define GREEN "\033[32m"
-#define BOLD "\033[1m"
-#define RESET "\033[0m"
+#include "ScavTrap.hpp"
 
 class DiamondTrap : public ScavTrap, public FragTrap {
-	public:
-		DiamondTrap();
-		DiamondTrap(const std::string& name);
-		DiamondTrap(const DiamondTrap& src);
-		~DiamondTrap();
+ public:
+  DiamondTrap();
+  DiamondTrap(const std::string& name);
+  DiamondTrap(const DiamondTrap& src);
+  ~DiamondTrap();
 
-		DiamondTrap& operator=(const DiamondTrap& src);
+  DiamondTrap& operator=(const DiamondTrap& src);
 
-		using ScavTrap::attack;
+  using ScavTrap::attack;
 
-		void whoAmI();
+  void whoAmI();
 
-		void printStatus() const;
+  void printStatus() const;
 
-	private:
-		std::string name;
+ private:
+  std::string name;
 };
-
-#endif

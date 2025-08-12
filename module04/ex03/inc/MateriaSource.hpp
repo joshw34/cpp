@@ -1,28 +1,26 @@
-#ifndef MATERIASOURCE_HPP
-#define MATERIASOURCE_HPP
+#pragma once
 
-#include "IMateriaSource.hpp"
-#include "Colors.hpp" // IWYU pragma: keep
 #include <string>
 
-class MateriaSource : public IMateriaSource{
-	public:
-		MateriaSource();
-		MateriaSource(const MateriaSource& src);
-		~MateriaSource();
+#include "Colors.hpp"  // IWYU pragma: keep
+#include "IMateriaSource.hpp"
 
-		MateriaSource& operator=(const MateriaSource& src);
+class MateriaSource : public IMateriaSource {
+ public:
+  MateriaSource();
+  MateriaSource(const MateriaSource& src);
+  ~MateriaSource();
 
-		void learnMateria(AMateria* m);
-		AMateria* createMateria(const std::string& type);
+  MateriaSource& operator=(const MateriaSource& src);
 
-	private:
-		static const int maxMat = 4;
-		AMateria* materia[maxMat];
+  void learnMateria(AMateria* m);
+  AMateria* createMateria(const std::string& type);
 
-		static void initMatArray(AMateria* materia[]);
-		static void copyMatArray(AMateria* materia[], AMateria* const src[]);
-		static void clearMatArray(AMateria* materia[]);
+ private:
+  static const int maxMat = 4;
+  AMateria* materia[maxMat];
+
+  static void initMatArray(AMateria* materia[]);
+  static void copyMatArray(AMateria* materia[], AMateria* const src[]);
+  static void clearMatArray(AMateria* materia[]);
 };
-
-#endif
