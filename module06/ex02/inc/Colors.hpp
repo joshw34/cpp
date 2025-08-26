@@ -1,5 +1,4 @@
-#ifndef COLORS
-#define COLORS
+#pragma once
 
 // Colors
 #define BLACK "\033[30m"
@@ -20,5 +19,3 @@
 #define STRIKETHROUGH "\033[9m"
 
 #define RESET "\033[0m"
-
-#endif
