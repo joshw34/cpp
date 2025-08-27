@@ -1,5 +1,5 @@
-NAME = whatever
-DBG_NAME = whatever-debug
+NAME = iter
+DBG_NAME = iter-debug
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/

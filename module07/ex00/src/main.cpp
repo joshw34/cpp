@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "../inc/Compare.hpp"
+#include "../inc/whatever.hpp"
 #include "../inc/Colors.hpp"
 
 template <typename T>
@@ -33,7 +33,6 @@ int main() {
   std::cout << GREEN BOLD << "\nFurther Tests\n" << RESET;
 
   {
-    std::cout << std::boolalpha;
     std::cout << YELLOW << "Int:\n" << RESET;
     compareValues(5, 10);
     compareValues(5, 5);
@@ -51,6 +50,7 @@ int main() {
     compareValues(56874.321, 56874.321);
 
     std::cout << YELLOW << "Bool:\n" << RESET;
+    std::cout << std::boolalpha;
     compareValues(true, false);
     compareValues(false, false);
 
