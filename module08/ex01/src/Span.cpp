@@ -1,0 +1,38 @@
+#include "../inc/Span.hpp"
+
+Span::Span() : max(0) {}
+
+Span::Span(const unsigned int N) : max(N) {}
+
+Span::Span(const Span& src) : max(src.max), data(src.data) {}
+
+Span::~Span() {}
+
+Span& Span::operator=(const Span& src) {
+  if (this != &src) {
+    this->max = src.max;
+    this->data = src.data;
+  }
+  return *this;
+}
+
+void Span::addNumber(const int num) {
+  if (data.size() == max)
+    throw std::out_of_range("Error: Cannot add more data");    
+  data.push_back(num);
+}
+
+int Span::shortestSpan() {
+  if (data.size() < 2)
+    throw std::runtime_error("Error: Must have 2 or more elements");
+  std::sort(data.begin(), data.end());
+  std::vector<int> temp(data.size());
+  std::adjacent_difference(data.begin(), data.end(), temp.begin());
+  return *std::min_element(temp.begin() + 1, temp.end());
+}
+
+int Span::longestSpan() const {
+  if (data.size() < 2)
+    throw std::runtime_error("Error: Must have 2 or more elements");
+  return *std::max_element(data.begin(), data.end()) - *std::min_element(data.begin(), data.end());
+}
