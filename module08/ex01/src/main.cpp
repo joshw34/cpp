@@ -5,9 +5,11 @@
 #include <cstdlib>
 #include <climits>
 #include <iomanip>
+#include <list>
+#include <map>
 
 int main() {
-  /*{
+  {
     std::cout << BOLD << "Test From Subject PDF\n" << RESET;
     Span sp = Span(5);
     sp.addNumber(6);
@@ -18,59 +20,80 @@ int main() {
     std::cout << sp.shortestSpan() << std::endl;
     std::cout << sp.longestSpan() << std::endl;
   }
-  {
-    std::cout << BOLD << "Large Data Set (10,000,000 numbers)\n" << RESET;
-    Span test(10000000);
-    
-    for (int i = 10000000; i > 0; --i) {
-      test.addNumber(i);
-    }
 
-    std::cout << "short: " << test.shortestSpan() << "\n"
-              << "long:  " << test.longestSpan() << "\n"
-              << std::endl;
-  }*/
-  time_t start, end;
-  srand(std::time(0));
-  std::vector<int> test;
-  for (int i = 0; i < 10000000; ++i) {
-    test.push_back(rand());
+  {
+    // Invalid N value
+    std::cout << BOLD << "\nInvalid N Value Test\n" << RESET;
+    try {
+      Span invalid(-1);
+      invalid.addNumber(42);
+      invalid.addNumber(9);
+      std::cout << invalid; 
+    } catch (std::exception& e) {
+      std::cerr << RED << e.what() << RESET << std::endl;
+    }
   }
 
   {
-    time(&start);
-
-    int shortest = INT_MAX;
-    int diff;
-
-    for (size_t i = 0; i < test.size(); ++i) {
-      for (size_t j = i + 1; j < test.size(); ++j) {
-        diff = std::max(test[i], test[j]) - std::min(test[i], test[j]);
-        shortest = (diff < shortest) ? diff : shortest;
-      }
+    // Overflow
+    std::cout << BOLD << "\nOverflow Test\n" << RESET;
+    try {
+      Span overflow(10);
+      for (int i = 0; i < 10; ++i)
+        overflow.addNumber(i + 1);
+      std::cout << overflow;
+      overflow.addNumber(11);
+    } catch (std::exception& e) {
+      std::cerr << RED << e.what() << RESET << std::endl;
     }
-
-    std::cout << std::fixed
-              << "short: " << shortest << "\n"
-              << "long:  " << *std::max_element(test.begin(), test.end()) - *std::min_element(test.begin(), test.end()) << "\n";
-    
-    time(&end);
-    std::cout << "Time taken: " << end - start << "\n";
   }
 
   {
-    time(&start);
+    // Add Range
+    std::cout << BOLD << "\nAdd Range Test\n" << RESET;
+    Span test(10);
+    std::vector<int> nums;
+    nums.push_back(3);
+    nums.push_back(7);
+    nums.push_back(18);
+    nums.push_back(30);
+    nums.push_back(42);
+    nums.push_back(56);
+    nums.push_back(70);
+    nums.push_back(89);
+    nums.push_back(127);
+    nums.push_back(130);
 
-    std::vector<int> compare(test.size());
-    
-    std::sort(test.begin(), test.end());
-    std::adjacent_difference(test.begin(), test.end(), compare.begin());
-    
-    std::cout << std::fixed
-              << "short: " << *std::min_element(compare.begin() + 1, compare.end()) << "\n"
-              << "long:  " << *std::max_element(test.begin(), test.end()) - *std::min_element(test.begin(), test.end()) << "\n";
-    
-    time(&end);
-    std::cout << "Time taken: " << end - start << "\n";
+    test.addRange(nums.begin(), nums.end());
+
+    test.printSpanData();
+    std::cout << test << std::endl;
+  }
+
+  {
+    // Add Range Overflow
+    std::cout << BOLD << "\nAdd Range Overflow Test\n" << RESET;
+    try {
+      Span test(10);
+      std::vector<int> nums;
+      nums.push_back(3);
+      nums.push_back(7);
+      nums.push_back(18);
+      nums.push_back(30);
+      nums.push_back(42);
+      nums.push_back(56);
+      nums.push_back(70);
+      nums.push_back(89);
+      nums.push_back(127);
+      nums.push_back(130);
+      nums.push_back(200);
+
+      test.addRange(nums.begin(), nums.end());
+
+      test.printSpanData();
+      std::cout << test << std::endl;
+    } catch (std::exception& e) {
+      std::cerr << RED << e.what() << RESET << std::endl;
+    }
   }
 }
