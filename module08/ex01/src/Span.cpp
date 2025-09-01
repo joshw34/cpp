@@ -23,7 +23,7 @@ Span& Span::operator=(const Span& src) {
 
 void Span::addNumber(const int num) {
   if (data.size() == max)
-    throw std::out_of_range("Error: Cannot add more data");    
+    throw std::out_of_range("Error: Can not add more data");    
   data.push_back(num);
 }
 
@@ -43,8 +43,10 @@ int Span::longestSpan() const {
 }
 
 void Span::printSpanData() const {
-  if (data.size() == 0)
-    std::cerr << RED << "Nothing to print" << RESET << std::endl;
+  if (data.size() == 0) {
+    std::cout << RED << "Nothing to print" << RESET << std::endl;
+    return;
+  }
   std::cout << "Span Data: [";
   for (size_t i = 0; i < data.size(); ++i) {
     std::cout << data.at(i) << ((i + 1 == data.size()) ? "" : ", ");
