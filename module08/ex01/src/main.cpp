@@ -5,10 +5,23 @@
 #include <climits>
 #include <list>
 #include <vector>
-#include <iterator>
+#include <ctime>
+#include <fstream>
+#include <deque>
+
+template <typename T>
+void fill_container(T& container, std::string file) {
+  std::string line;
+  std::ifstream input(file.c_str());
+  container.clear();
+  while (std::getline(input, line, '\n')) {
+    container.push_back(std::atoi(line.c_str()));
+  } 
+  input.close();
+}
 
 int main() {
-  {
+  /*{
     std::cout << BOLD << "Test From Subject PDF\n" << RESET;
     Span sp = Span(5);
     sp.addNumber(6);
@@ -18,37 +31,113 @@ int main() {
     sp.addNumber(11);
     std::cout << sp.shortestSpan() << std::endl;
     std::cout << sp.longestSpan() << std::endl;
-  }
-
-  std::vector<int> vec;
-  vec.push_back(3);
-  vec.push_back(7);
-  vec.push_back(18);
-  vec.push_back(30);
-  vec.push_back(42);
-  vec.push_back(56);
-  vec.push_back(70);
-  vec.push_back(89);
-  vec.push_back(127);
-  vec.push_back(130);
-  vec.push_back(200);
+  }*/
 
   std::list<int> lst;
-  lst.push_back(12);
-  lst.push_back(22);
-  lst.push_back(39);
-  lst.push_back(43);
-  lst.push_back(58);
-  lst.push_back(96);
-  lst.push_back(120);
-  lst.push_back(154);
-  lst.push_back(156);
-  lst.push_back(280);
+  std::vector<int> vec;
+  std::deque<int> deq;
 
-  int arr[10] = {101, 125, 130, 148, 159, 180, 205, 300, 500, 1000};
+  // Test 1
+  {
+    std::cout << BOLD << "\nTest 1\n" << RESET;
+    Span test(5);
+    fill_container(lst, "./nums/5.txt");
+    test.addRange(lst.begin(), lst.end());
+    std::cout << test;
+    test.printSpanData();
+  }
+
+  // Test 2
+  {
+    std::cout << BOLD << "\nTest 2\n" << RESET;
+    Span test(5);
+    fill_container(vec, "./nums/5-2.txt");
+    test.addRange(vec.begin(), vec.end());
+    std::cout << test;
+    test.printSpanData();
+  }
+
+  // Test 3
+  {
+    std::cout << BOLD << "\nTest 3\n" << RESET;
+    Span test(5);
+    fill_container(deq, "./nums/5-3.txt");
+    test.addRange(deq.begin(), deq.end());
+    std::cout << test;
+    test.printSpanData();
+  }
+
+  // Test 4
+  {
+    std::cout << BOLD << "\nTest 4\n" << RESET;
+    Span test(10);
+    fill_container(lst, "./nums/10.txt");
+    test.addRange(lst.begin(), lst.end());
+    std::cout << test;
+    test.printSpanData();
+  }
+
+  // Test 5 
+  {
+    std::cout << BOLD << "\nTest 5\n" << RESET;
+    Span test(10);
+    fill_container(vec, "./nums/10-2.txt");
+    test.addRange(vec.begin(), vec.end());
+    std::cout << test;
+    test.printSpanData();
+  }
+
+  // Test 6 
+  {
+    std::cout << BOLD << "\nTest 6\n" << RESET;
+    Span test(10);
+    fill_container(deq, "./nums/10-3.txt");
+    test.addRange(deq.begin(), deq.end());
+    std::cout << test;
+    test.printSpanData();
+  }
+
+  // Test 7
+  {
+    std::cout << BOLD << "\nTest 7\n" << RESET;
+    Span test(20);
+    fill_container(lst, "./nums/20.txt");
+    test.addRange(lst.begin(), lst.end());
+    std::cout << test;
+    test.printSpanData();
+  }
+
+  // Test 8
+  {
+    std::cout << BOLD << "\nTest 8\n" << RESET;
+    Span test(20);
+    fill_container(vec, "./nums/20-2.txt");
+    test.addRange(vec.begin(), vec.end());
+    std::cout << test;
+    test.printSpanData();
+  }
+
+  // Test 9
+  {
+    std::cout << BOLD << "\nTest 9\n" << RESET;
+    Span test(20);
+    fill_container(deq, "./nums/20-3.txt");
+    test.addRange(deq.begin(), deq.end());
+    std::cout << test;
+    test.printSpanData();
+  }
+
+  // Test 10
+  {
+    std::cout << BOLD << "\nTest 10\n" << RESET;
+    Span test(1000000);
+    fill_container(vec, "./nums/1000000.txt");
+    test.addRange(vec.begin(), vec.end());
+    std::cout << test;
+  }
 
   // Invalid N value
-  {
+ /* {
     std::cout << BOLD << "\nInvalid N Value Test\n" << RESET;
     try {
       Span invalid(-1);
@@ -74,18 +163,9 @@ int main() {
     }
   }
 
-  // Add Range
+  // Range Overflow
   {
-    std::cout << BOLD << "\nAdd Range Test (std::vector)\n" << RESET;
-    Span test(10);
-    test.addRange(vec.begin(), vec.end() - 1);
-    test.printSpanData();
-    std::cout << test;
-  }
-
-  // Add Range Overflow
-  {
-    std::cout << BOLD << "\nAdd Range Overflow Test\n" << RESET;
+    std::cout << BOLD << "\nRange Overflow Test\n" << RESET;
     try {
       Span test(10);
       test.addRange(vec.begin(), vec.end());
@@ -94,23 +174,5 @@ int main() {
     } catch (std::exception& e) {
       std::cerr << RED << e.what() << RESET << std::endl;
     }
-  }
-
-  // Test 1
-  {
-    std::cout << BOLD << "\nTest 1 (std::list)\n" << RESET;
-    Span test(10);
-    test.addRange(lst.begin(), lst.end());
-    test.printSpanData();
-    std::cout << test;
-  }
-
-  // Test 2
-  {
-    std::cout << BOLD << "\nTest 2 (c array)\n" << RESET;
-    Span test(10);
-    test.addRange(arr[0], arr[9]);
-    test.printSpanData();
-    std::cout << test;
-  }
+  }*/
 }
