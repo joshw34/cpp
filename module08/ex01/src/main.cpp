@@ -1,12 +1,11 @@
 #include "../inc/Span.hpp"
 #include "../inc/Colors.hpp"
 #include <iostream>
-#include <ctime>
 #include <cstdlib>
 #include <climits>
-#include <iomanip>
 #include <list>
-#include <map>
+#include <vector>
+#include <iterator>
 
 int main() {
   {
@@ -21,8 +20,35 @@ int main() {
     std::cout << sp.longestSpan() << std::endl;
   }
 
+  std::vector<int> vec;
+  vec.push_back(3);
+  vec.push_back(7);
+  vec.push_back(18);
+  vec.push_back(30);
+  vec.push_back(42);
+  vec.push_back(56);
+  vec.push_back(70);
+  vec.push_back(89);
+  vec.push_back(127);
+  vec.push_back(130);
+  vec.push_back(200);
+
+  std::list<int> lst;
+  lst.push_back(12);
+  lst.push_back(22);
+  lst.push_back(39);
+  lst.push_back(43);
+  lst.push_back(58);
+  lst.push_back(96);
+  lst.push_back(120);
+  lst.push_back(154);
+  lst.push_back(156);
+  lst.push_back(280);
+
+  int arr[10] = {101, 125, 130, 148, 159, 180, 205, 300, 500, 1000};
+
+  // Invalid N value
   {
-    // Invalid N value
     std::cout << BOLD << "\nInvalid N Value Test\n" << RESET;
     try {
       Span invalid(-1);
@@ -34,8 +60,8 @@ int main() {
     }
   }
 
+  // Overflow
   {
-    // Overflow
     std::cout << BOLD << "\nOverflow Test\n" << RESET;
     try {
       Span overflow(10);
@@ -48,52 +74,43 @@ int main() {
     }
   }
 
+  // Add Range
   {
-    // Add Range
-    std::cout << BOLD << "\nAdd Range Test\n" << RESET;
+    std::cout << BOLD << "\nAdd Range Test (std::vector)\n" << RESET;
     Span test(10);
-    std::vector<int> nums;
-    nums.push_back(3);
-    nums.push_back(7);
-    nums.push_back(18);
-    nums.push_back(30);
-    nums.push_back(42);
-    nums.push_back(56);
-    nums.push_back(70);
-    nums.push_back(89);
-    nums.push_back(127);
-    nums.push_back(130);
-
-    test.addRange(nums.begin(), nums.end());
-
+    test.addRange(vec.begin(), vec.end() - 1);
     test.printSpanData();
-    std::cout << test << std::endl;
+    std::cout << test;
   }
 
+  // Add Range Overflow
   {
-    // Add Range Overflow
     std::cout << BOLD << "\nAdd Range Overflow Test\n" << RESET;
     try {
       Span test(10);
-      std::vector<int> nums;
-      nums.push_back(3);
-      nums.push_back(7);
-      nums.push_back(18);
-      nums.push_back(30);
-      nums.push_back(42);
-      nums.push_back(56);
-      nums.push_back(70);
-      nums.push_back(89);
-      nums.push_back(127);
-      nums.push_back(130);
-      nums.push_back(200);
-
-      test.addRange(nums.begin(), nums.end());
-
+      test.addRange(vec.begin(), vec.end());
       test.printSpanData();
-      std::cout << test << std::endl;
+      std::cout << test;
     } catch (std::exception& e) {
       std::cerr << RED << e.what() << RESET << std::endl;
     }
+  }
+
+  // Test 1
+  {
+    std::cout << BOLD << "\nTest 1 (std::list)\n" << RESET;
+    Span test(10);
+    test.addRange(lst.begin(), lst.end());
+    test.printSpanData();
+    std::cout << test;
+  }
+
+  // Test 2
+  {
+    std::cout << BOLD << "\nTest 2 (c array)\n" << RESET;
+    Span test(10);
+    test.addRange(arr[0], arr[9]);
+    test.printSpanData();
+    std::cout << test;
   }
 }
