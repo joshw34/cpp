@@ -61,7 +61,7 @@ NIX_ENFORCE_NO_NATIVE='1'
 export NIX_ENFORCE_NO_NATIVE
 NIX_HARDENING_ENABLE='bindnow format fortify fortify3 pic relro stackclashprotection stackprotector strictoverflow zerocallusedregs'
 export NIX_HARDENING_ENABLE
-NIX_LDFLAGS='-rpath /home/joshw/Work/cpp/module08/ex01/outputs/out/lib  -L/nix/store/nrajfr8kz6g6fzsmib3xb71fax9q53x4-lldb-19.1.7/lib -L/nix/store/nrajfr8kz6g6fzsmib3xb71fax9q53x4-lldb-19.1.7/lib'
+NIX_LDFLAGS='-rpath /home/joshw/Work/cpp/outputs/out/lib  -L/nix/store/nrajfr8kz6g6fzsmib3xb71fax9q53x4-lldb-19.1.7/lib -L/nix/store/nrajfr8kz6g6fzsmib3xb71fax9q53x4-lldb-19.1.7/lib'
 export NIX_LDFLAGS
 NIX_LDFLAGS_FOR_TARGET=' -L/nix/store/nrajfr8kz6g6fzsmib3xb71fax9q53x4-lldb-19.1.7/lib'
 export NIX_LDFLAGS_FOR_TARGET
@@ -173,7 +173,7 @@ name='c-cpp-shell-env'
 export name
 nativeBuildInputs=''
 export nativeBuildInputs
-out='/home/joshw/Work/cpp/module08/ex01/outputs/out'
+out='/home/joshw/Work/cpp/outputs/out'
 export out
 outputBin='out'
 outputDev='out'
@@ -204,7 +204,7 @@ preConfigurePhases=' updateAutotoolsGnuConfigScriptsPhase'
 declare -a preFixupHooks=('_moveToShare' '_multioutDocs' '_multioutDevs' )
 preferLocalBuild='1'
 export preferLocalBuild
-prefix='/home/joshw/Work/cpp/module08/ex01/outputs/out'
+prefix='/home/joshw/Work/cpp/outputs/out'
 declare -a propagatedBuildDepFiles=('propagated-build-build-deps' 'propagated-native-build-inputs' 'propagated-build-target-deps' )
 propagatedBuildInputs=''
 export propagatedBuildInputs
