@@ -1,13 +1,12 @@
-#include "../inc/Span.hpp"
-#include "../inc/Colors.hpp"
-#include <iostream>
 #include <cstdlib>
-#include <climits>
+#include <deque>
+#include <fstream>
+#include <iostream>
 #include <list>
 #include <vector>
-#include <ctime>
-#include <fstream>
-#include <deque>
+
+#include "../inc/Colors.hpp"
+#include "../inc/Span.hpp"
 
 template <typename T>
 void fill_container(T& container, std::string file) {
@@ -16,7 +15,7 @@ void fill_container(T& container, std::string file) {
   container.clear();
   while (std::getline(input, line, '\n')) {
     container.push_back(std::atoi(line.c_str()));
-  } 
+  }
   input.close();
 }
 
@@ -77,7 +76,7 @@ int main() {
     test.printSpanData();
   }
 
-  // Test 5 
+  // Test 5
   {
     std::cout << BOLD << "\nTest 5\n" << RESET;
     Span test(10);
@@ -87,7 +86,7 @@ int main() {
     test.printSpanData();
   }
 
-  // Test 6 
+  // Test 6
   {
     std::cout << BOLD << "\nTest 6\n" << RESET;
     Span test(10);
@@ -145,7 +144,7 @@ int main() {
       Span invalid(-1);
       invalid.addNumber(42);
       invalid.addNumber(9);
-      std::cout << invalid; 
+      std::cout << invalid;
     } catch (std::exception& e) {
       std::cerr << RED << e.what() << RESET << std::endl;
     }
@@ -156,8 +155,7 @@ int main() {
     std::cout << BOLD << "\nOverflow Test\n" << RESET;
     try {
       Span overflow(10);
-      for (int i = 0; i < 10; ++i)
-        overflow.addNumber(i + 1);
+      for (int i = 0; i < 10; ++i) overflow.addNumber(i + 1);
       std::cout << overflow;
       overflow.addNumber(11);
     } catch (std::exception& e) {

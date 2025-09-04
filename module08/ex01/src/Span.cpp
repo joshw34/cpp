@@ -4,7 +4,7 @@ Span::Span() : max(0) {}
 
 Span::Span(const unsigned int N) : max(N) {}
 
-Span::Span(const int N) : max(N) { 
+Span::Span(const int N) : max(N) {
   if (N < 0)
     throw std::out_of_range("Error: Number of elements can not be negative");
 }
@@ -23,7 +23,7 @@ Span& Span::operator=(const Span& src) {
 
 void Span::addNumber(const int num) {
   if (data.size() == max)
-    throw std::out_of_range("Error: Can not add more data");    
+    throw std::out_of_range("Error: Can not add more data");
   data.push_back(num);
 }
 
@@ -39,7 +39,8 @@ int Span::shortestSpan() {
 int Span::longestSpan() const {
   if (data.size() < 2)
     throw std::runtime_error("Error: Must have 2 or more elements");
-  return *std::max_element(data.begin(), data.end()) - *std::min_element(data.begin(), data.end());
+  return *std::max_element(data.begin(), data.end()) -
+         *std::min_element(data.begin(), data.end());
 }
 
 void Span::printSpanData() const {
