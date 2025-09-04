@@ -21,7 +21,7 @@ void fill_container(T& container, std::string file) {
 }
 
 int main() {
-  /*{
+  {
     std::cout << BOLD << "Test From Subject PDF\n" << RESET;
     Span sp = Span(5);
     sp.addNumber(6);
@@ -31,7 +31,7 @@ int main() {
     sp.addNumber(11);
     std::cout << sp.shortestSpan() << std::endl;
     std::cout << sp.longestSpan() << std::endl;
-  }*/
+  }
 
   std::list<int> lst;
   std::vector<int> vec;
@@ -134,10 +134,12 @@ int main() {
     fill_container(vec, "./nums/1000000.txt");
     test.addRange(vec.begin(), vec.end());
     std::cout << test;
+    std::cout << "Min: " << *std::min_element(vec.begin(), vec.end()) << " "
+              << "Max: " << *std::max_element(vec.begin(), vec.end()) << "\n";
   }
 
   // Invalid N value
- /* {
+  {
     std::cout << BOLD << "\nInvalid N Value Test\n" << RESET;
     try {
       Span invalid(-1);
@@ -174,5 +176,5 @@ int main() {
     } catch (std::exception& e) {
       std::cerr << RED << e.what() << RESET << std::endl;
     }
-  }*/
+  }
 }
