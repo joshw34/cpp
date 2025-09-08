@@ -35,13 +35,13 @@ int main() {
     try {
       std::cout << "List:\t" << easyfind(lst, 1000) << "\n";
     } catch (std::exception& e) {
-      std::cerr << RED << e.what() << RESET "\n";
+      std::cerr << RED << e.what() << RESET << "\n";
     }
               
     try {
       std::cout << "Deque:\t" << easyfind(deq, 1000) << "\n";
     } catch (std::exception& e) {
-      std::cerr << RED << e.what() << RESET "\n\n";
+      std::cerr << RED << e.what() << RESET << "\n\n";
     }
   }
   {
@@ -55,19 +55,19 @@ int main() {
     try {
       std::cout << "Vector:\t" << easyfind(vec, 42) << "\n";
     } catch (std::exception& e) {
-      std::cerr << RED << e.what() << RESET "\n";
+      std::cerr << RED << e.what() << RESET << "\n";
     }
 
     try {
       std::cout << "List:\t" << easyfind(lst, 42) << "\n";
     } catch (std::exception& e) {
-      std::cerr << RED << e.what() << RESET "\n";
+      std::cerr << RED << e.what() << RESET << "\n";
     }
               
     try {
       std::cout << "Deque:\t" << easyfind(deq, 42) << "\n";
     } catch (std::exception& e) {
-      std::cerr << RED << e.what() << RESET "\n";
+      std::cerr << RED << e.what() << RESET << "\n";
     }
   }
 }
