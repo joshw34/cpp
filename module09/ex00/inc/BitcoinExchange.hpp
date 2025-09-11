@@ -1,12 +1,12 @@
 #pragma once
 
-#include <fstream> // IWYU pragma: keep
-#include <map>
-#include <stdexcept> // IWYU pragma: keep
-#include <string>
 #include <cstdlib>
 #include <ctime>
-#include <iomanip> // IWYU pragma: keep
+#include <fstream>  // IWYU pragma: keep
+#include <iomanip>  // IWYU pragma: keep
+#include <map>
+#include <stdexcept>  // IWYU pragma: keep
+#include <string>
 
 class BitcoinExchange {
  public:
