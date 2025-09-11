@@ -1,18 +1,20 @@
 #pragma once
 
-#include <fstream>
+#include <fstream> // IWYU pragma: keep
 #include <map>
-#include <stdexcept>
+#include <stdexcept> // IWYU pragma: keep
 #include <string>
 #include <cstdlib>
-#include <iomanip>
+#include <ctime>
+#include <iomanip> // IWYU pragma: keep
 
 class BitcoinExchange {
  public:
-  BitcoinExchange(const std::string& input);
-  BitcoinExchange(const BitcoinExchange& src);
+  BitcoinExchange(const std::string&);
+  BitcoinExchange(const BitcoinExchange&);
+  ~BitcoinExchange();
 
-  BitcoinExchange& operator=(const BitcoinExchange& src);
+  BitcoinExchange& operator=(const BitcoinExchange&);
 
   void run();
 
@@ -21,7 +23,7 @@ class BitcoinExchange {
   std::map<std::string, double> data;
   std::string input_file;
 
-  void loadData();
+  void loadDatabase();
 
   bool dateIsValid(const std::string&);
   bool valueIsValid(const std::string&);
