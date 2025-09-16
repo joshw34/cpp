@@ -24,7 +24,5 @@ class BitcoinExchange {
   std::string input_file;
 
   void loadDatabase();
-
-  bool dateIsValid(const std::string&);
-  bool valueIsValid(const std::string&);
+  void lookupInput();
 };
