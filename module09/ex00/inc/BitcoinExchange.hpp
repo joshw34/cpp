@@ -18,6 +18,7 @@ class BitcoinExchange {
 
  private:
   BitcoinExchange();  // Private: should not be used
+
   std::map<std::string, double> data;
   std::string input_file;
 

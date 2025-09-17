@@ -28,7 +28,7 @@ void BitcoinExchange::run() {
 void BitcoinExchange::loadDatabase() {
   std::ifstream datafile("./data/data.csv");
   if (!datafile.is_open())
-    throw std::invalid_argument("Error: data.csv could not be opened");
+    throw std::runtime_error("Error: data.csv could not be opened");
   std::string line;
   std::getline(datafile, line);  // Skip header line
   while (std::getline(datafile, line)) {
@@ -42,11 +42,11 @@ void BitcoinExchange::loadDatabase() {
 void BitcoinExchange::processInputFile() {
   std::ifstream infile(input_file.c_str());
   if (!infile.is_open())
-    throw std::invalid_argument("Error: Unable to open input file");
+    throw std::runtime_error("Error: Unable to open input file");
   std::string line;
   std::getline(infile, line);  // Skip header line
-  while (std::getline(infile, line)) processLine(line);
-  infile.close();
+  while (std::getline(infile, line))
+    processLine(line);
 }
 
 void BitcoinExchange::processLine(const std::string& line) {
@@ -56,7 +56,7 @@ void BitcoinExchange::processLine(const std::string& line) {
     double amount = validateAmount(line);
     lookupValue(date, amount);
   } catch (const std::invalid_argument& e) {
-    std::cerr << e.what() << " " << line << "\n";
+    std::cerr << "Error: bad input => " << line << "\n";
   } catch (const std::out_of_range& e) {
     std::cerr << e.what() << "\n";
   }
@@ -65,27 +65,27 @@ void BitcoinExchange::processLine(const std::string& line) {
 void BitcoinExchange::validateLineFormat(const std::string& line) {
   if (line.length() < 14 || line.at(10) != ' ' || line.at(11) != '|' ||
       line.at(12) != ' ' || line.substr(12).find_first_of("|") != line.npos)
-    throw std::invalid_argument("Error: bad input =>");
+    throw std::invalid_argument("");
 }
 
 std::string BitcoinExchange::validateDate(const std::string& line) {
   std::string date = line.substr(0, 10);
   for (size_t i = 0; i < date.size(); ++i) {
     if ((i == 4 || i == 7) && date.at(i) != '-')
-      throw std::invalid_argument("Error: bad input =>");
+      throw std::invalid_argument("");
     else if ((i != 4 && i != 7) && std::isdigit(date.at(i)) == 0)
-      throw std::invalid_argument("Error: bad input =>");
+      throw std::invalid_argument("");
   }
   int year = std::atoi(date.substr(0, 4).c_str());
   int month = std::atoi(date.substr(5, 2).c_str());
-  int day = std::atoi(date.substr(9, 2).c_str());
+  int day = std::atoi(date.substr(8, 2).c_str());
   int days_in_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
   if (year < 1 || month < 1 || month > 12 || day < 1)
-    throw std::invalid_argument("Error: bad input =>");
-  if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+    throw std::invalid_argument("");
+  if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
     days_in_month[1] = 29;
   if (day > days_in_month[month - 1])
-    throw std::invalid_argument("Error: bad input =>");
+    throw std::invalid_argument("");
   return date;
 }
 
@@ -93,7 +93,7 @@ double BitcoinExchange::validateAmount(const std::string& line) {
   char* end;
   double amount = std::strtod(line.substr(13).c_str(), &end);
   if (*end != '\0')
-    throw std::invalid_argument("Error: bad input =>");
+    throw std::invalid_argument("");
   if (amount < 0)
     throw std::out_of_range("Error: not a positive number");
   if (amount > 1000)
