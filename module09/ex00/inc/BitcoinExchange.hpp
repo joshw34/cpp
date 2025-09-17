@@ -1,9 +1,7 @@
 #pragma once
 
 #include <cstdlib>
-#include <ctime>
 #include <fstream>  // IWYU pragma: keep
-#include <iomanip>  // IWYU pragma: keep
 #include <map>
 #include <stdexcept>  // IWYU pragma: keep
 #include <string>
@@ -24,5 +22,10 @@ class BitcoinExchange {
   std::string input_file;
 
   void loadDatabase();
-  void lookupInput();
+  void processInputFile();
+  void processLine(const std::string&);
+  void validateLineFormat(const std::string&);
+  std::string validateDate(const std::string&);
+  double validateAmount(const std::string&);
+  void lookupValue(const std::string&, const double&) const;
 };
