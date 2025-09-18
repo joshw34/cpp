@@ -14,13 +14,13 @@ class RPN {
 
   RPN& operator=(const RPN&);
 
-  void run();
+  void solve();
 
  private:
-  RPN();  // Private so it isn't used
+  RPN();
 
   std::string input;
-  std::stack<int> operands;
+  std::stack<double> operands;
 
   bool isOperator(const char) const;
   void calculate(const char);

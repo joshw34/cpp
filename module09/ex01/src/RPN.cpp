@@ -1,6 +1,6 @@
 #include "../inc/RPN.hpp"
 
-RPN::RPN() {}  // Private
+RPN::RPN() {}
 
 RPN::RPN(const std::string& input) : input(input) {}
 
@@ -16,14 +16,14 @@ RPN& RPN::operator=(const RPN& src) {
   return *this;
 }
 
-void RPN::run() {
+void RPN::solve() {
   for (size_t i = 0; i < input.size(); ++i) {
     char c = input.at(i);
     bool next_is_space = (i + 1 == input.size() || input.at(i + 1) == ' ') ? true : false;
     if (c == ' ' && !next_is_space)
       continue;
     else if (std::isdigit(c) && next_is_space)
-      operands.push(c - 48);
+      operands.push(static_cast<double>(c - 48));
     else if (isOperator(c) && next_is_space)
       calculate(c);
     else
@@ -41,11 +41,10 @@ bool RPN::isOperator(const char c) const {
 
 void RPN::calculate(const char operation) {
   if (operands.size() < 2)
-    throw std::invalid_argument(
-        "Too many operators (n operands = n-1 operators)");
-  int right = operands.top();
+    throw std::invalid_argument("Too many operators (n operands = n-1 operators)");
+  double right = operands.top();
   operands.pop();
-  int left = operands.top();
+  double left = operands.top();
   operands.pop();
   switch (operation) {
     case '+':
