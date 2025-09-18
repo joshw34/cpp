@@ -28,7 +28,7 @@ void BitcoinExchange::run() {
 void BitcoinExchange::loadDatabase() {
   std::ifstream datafile("./data/data.csv");
   if (!datafile.is_open())
-    throw std::runtime_error("Error: data.csv could not be opened");
+    throw std::runtime_error("Error: data.csv could not be opened.");
   std::string line;
   std::getline(datafile, line);  // Skip header line
   while (std::getline(datafile, line)) {
@@ -42,7 +42,7 @@ void BitcoinExchange::loadDatabase() {
 void BitcoinExchange::processInputFile() {
   std::ifstream infile(input_file.c_str());
   if (!infile.is_open())
-    throw std::runtime_error("Error: Unable to open input file");
+    throw std::runtime_error("Error: Unable to open input file.");
   std::string line;
   std::getline(infile, line);  // Skip header line
   while (std::getline(infile, line))
@@ -95,16 +95,16 @@ double BitcoinExchange::validateAmount(const std::string& line) {
   if (*end != '\0')
     throw std::invalid_argument("");
   if (amount < 0)
-    throw std::out_of_range("Error: not a positive number");
+    throw std::out_of_range("Error: not a positive number.");
   if (amount > 1000)
-    throw std::out_of_range("Error: too large a number");
+    throw std::out_of_range("Error: too large a number.");
   return amount;
 }
 
 void BitcoinExchange::lookupValue(const std::string& date, const double& amount) const {
   std::map<std::string, double>::const_iterator it = data.upper_bound(date);
   if (it == data.begin())
-    throw std::out_of_range("Error: date is too early");
+    throw std::out_of_range("Error: date is too early.");
   else
     --it;
   std::cout << date << " => " << amount << " = " << it->second * amount << "\n";
