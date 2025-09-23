@@ -50,8 +50,9 @@ const std::vector<int> PmergeMe::initJacobsthal(const int input_size) {
   return result;
 }
 
-std::vector<std::pair<int, int> > PmergeMe::getVecPairs() {
-
+std::vector<std::pair<int, int> > PmergeMe::getVecPairs() const {
+  std::vector<std::pair<int, int> > result;
+  result.reserve(vec_data.size() / 2 + 1);
 }
 
 void PmergeMe::vectorSort(std::vector<std::pair<int, int> >& data) {
@@ -71,15 +72,13 @@ void PmergeMe::vectorSort(std::vector<std::pair<int, int> >& data) {
       if (it->first >= next_it->first) {
         winners.push_back(*it);
         losers.push_back(*next_it);
-      }
-      else {
+      } else {
         winners.push_back(*next_it);
         losers.push_back(*it);
       }
       it = next_it;
       ++it;
-    }
-    else {
+    } else {
       losers.push_back(*it);
       ++it;
     }
