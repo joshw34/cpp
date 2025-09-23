@@ -16,7 +16,7 @@ REMOVE_DIR = rm -rf
 
 CC = clang++
 
-CFLAGS = -Wall -Werror -Wextra -std=c++98 -I$(INC_DIR)
+CFLAGS = -Wall -Werror -Wextra -I$(INC_DIR)
 DBG_CFLAGS = -g
 
 
