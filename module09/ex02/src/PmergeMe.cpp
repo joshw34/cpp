@@ -3,10 +3,12 @@
 PmergeMe::PmergeMe() {}
 
 PmergeMe::PmergeMe(const std::vector<int>& input)
-    : vec_data(validateInput(input)), lst_data(initDataList(input)) {}
+    : vec_data(validateInput(input)),
+      lst_data(initDataList(input)),
+      jacobsthal(initJacobsthal(input.size())) {}
 
 PmergeMe::PmergeMe(const PmergeMe& src)
-    : vec_data(src.vec_data), lst_data(src.lst_data) {}
+    : vec_data(src.vec_data), lst_data(src.lst_data), jacobsthal(src.jacobsthal) {}
 
 PmergeMe::~PmergeMe() {}
 
@@ -14,25 +16,14 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& src) {
   if (this != &src) {
     this->vec_data = src.vec_data;
     this->lst_data = src.lst_data;
+    this->jacobsthal = src.jacobsthal;
   }
   return *this;
 }
 
 void PmergeMe::sort() {
-  printData("Before");
-  for (std::list<int>::iterator it = lst_data.begin(); it != lst_data.end();
-       ++it) {
-    std::cout << *it << " ";
-  }
-  std::cout << "\n";
-  mergeInsertSort(vec_data.begin(), vec_data.end(), 0);
-  mergeInsertSort(lst_data.begin(), lst_data.end(), 0);
-  printData("After");
-  for (std::list<int>::iterator it = lst_data.begin(); it != lst_data.end();
-       ++it) {
-    std::cout << *it << " ";
-  }
-  std::cout << "\n";
+  std::vector<std::pair<int, int> > vec_pairs = getVecPairs();
+  vectorSort(vec_pairs);
 }
 
 const std::vector<int>& PmergeMe::validateInput(const std::vector<int>& input) {
@@ -49,10 +40,49 @@ const std::list<int> PmergeMe::initDataList(const std::vector<int>& input) {
   return result;
 }
 
-void PmergeMe::printData(const std::string prefix) {
-  std::cout << prefix << ": ";
-  for (size_t i = 0; i < vec_data.size(); ++i) {
-    std::cout << vec_data.at(i) << " ";
+// result[n] = result[n-1] + (2 * result[n-2])
+const std::vector<int> PmergeMe::initJacobsthal(const int input_size) {
+  std::vector<int> result;
+  result.push_back(0);
+  result.push_back(1);
+  while (result.back() < input_size) 
+    result.push_back(result.back() + (2 * result[result.size() - 2]));
+  return result;
+}
+
+std::vector<std::pair<int, int> > PmergeMe::getVecPairs() {
+
+}
+
+void PmergeMe::vectorSort(std::vector<std::pair<int, int> >& data) {
+  if (data.size() <= 2) {
+    if (data.size() == 2 && data.front().first < data.back().first)
+      std::swap(data.front(), data.back());
+    return;
   }
-  std::cout << std::endl;
+  std::vector<std::pair<int, int> > winners;
+  std::vector<std::pair<int, int> > losers;
+  winners.reserve(data.size() / 2 + 1);
+  losers.reserve(data.size() / 2 + 1);
+  for (std::vector<std::pair<int, int> >::iterator it = data.begin(); it != data.end();) {
+    std::vector<std::pair<int, int> >::iterator next_it = it;
+    ++next_it;
+    if (next_it != data.end()) {
+      if (it->first >= next_it->first) {
+        winners.push_back(*it);
+        losers.push_back(*next_it);
+      }
+      else {
+        winners.push_back(*next_it);
+        losers.push_back(*it);
+      }
+      it = next_it;
+      ++it;
+    }
+    else {
+      losers.push_back(*it);
+      ++it;
+    }
+    vectorSort(winners);
+  }
 }
