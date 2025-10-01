@@ -3,27 +3,48 @@
 PmergeMe::PmergeMe() {}
 
 PmergeMe::PmergeMe(const std::vector<int>& input)
-    : vec_data(validateInput(input)),
-      lst_data(initDataList(input)),
+    : input_data(validateInput(input)),
       jacobsthal(initJacobsthal(input.size())) {}
 
 PmergeMe::PmergeMe(const PmergeMe& src)
-    : vec_data(src.vec_data), lst_data(src.lst_data), jacobsthal(src.jacobsthal) {}
+    : input_data(src.input_data), jacobsthal(src.jacobsthal) {}
 
 PmergeMe::~PmergeMe() {}
 
 PmergeMe& PmergeMe::operator=(const PmergeMe& src) {
   if (this != &src) {
-    this->vec_data = src.vec_data;
-    this->lst_data = src.lst_data;
+    this->input_data = src.input_data;
     this->jacobsthal = src.jacobsthal;
   }
   return *this;
 }
 
 void PmergeMe::sort() {
-  std::vector<std::pair<int, int> > vec_pairs = getVecPairs();
-  vectorSort(vec_pairs);
+  clock_t start, end;
+  double vec_time, lst_time;
+
+  start = clock();
+  std::vector<int> vec_data(input_data.begin(), input_data.end());
+  vectorSort(vec_data);
+  end = clock();
+  vec_time = static_cast<double>(end - start) / static_cast<double>(CLOCKS_PER_SEC) * 1000;
+
+  start = clock();
+  std::list<int> lst_data(input_data.begin(), input_data.end());
+  listSort(lst_data);
+  end = clock();
+  lst_time = static_cast<double>(end - start) / static_cast<double>(CLOCKS_PER_SEC) * 1000;
+
+  printContainer(input_data, "Before");
+
+  if (!checkResult(vec_data))
+    throw std::runtime_error("std::vector failed");
+  if (!checkResult(lst_data))
+    throw std::runtime_error("std::list failed");
+
+  printContainer(lst_data, "After ");
+  printStats(vec_data, vec_time, "vector");
+  printStats(lst_data, lst_time, "list");
 }
 
 const std::vector<int>& PmergeMe::validateInput(const std::vector<int>& input) {
@@ -34,54 +55,109 @@ const std::vector<int>& PmergeMe::validateInput(const std::vector<int>& input) {
   return input;
 }
 
-const std::list<int> PmergeMe::initDataList(const std::vector<int>& input) {
-  std::list<int> result;
-  result.insert(result.begin(), input.begin(), input.end());
-  return result;
-}
-
 // result[n] = result[n-1] + (2 * result[n-2])
-const std::vector<int> PmergeMe::initJacobsthal(const int input_size) {
-  std::vector<int> result;
+// result[n] = index number
+const std::vector<size_t> PmergeMe::initJacobsthal(const size_t input_size) {
+  std::vector<size_t> result;
   result.push_back(0);
   result.push_back(1);
-  while (result.back() < input_size) 
+  while (result.back() < input_size)
     result.push_back(result.back() + (2 * result[result.size() - 2]));
+  result.erase(result.begin());
+  result.erase(result.begin());
+  for (size_t i = 0; i < result.size(); ++i) result[i] -= 1;
   return result;
 }
 
-std::vector<std::pair<int, int> > PmergeMe::getVecPairs() const {
-  std::vector<std::pair<int, int> > result;
-  result.reserve(vec_data.size() / 2 + 1);
-}
-
-void PmergeMe::vectorSort(std::vector<std::pair<int, int> >& data) {
-  if (data.size() <= 2) {
-    if (data.size() == 2 && data.front().first < data.back().first)
-      std::swap(data.front(), data.back());
+void PmergeMe::vectorSort(std::vector<int>& data) {
+  if (handleBaseCase(data))
     return;
-  }
-  std::vector<std::pair<int, int> > winners;
-  std::vector<std::pair<int, int> > losers;
+  std::vector<int> winners;
+  std::vector<std::pair<int, int> > pairs;
   winners.reserve(data.size() / 2 + 1);
-  losers.reserve(data.size() / 2 + 1);
-  for (std::vector<std::pair<int, int> >::iterator it = data.begin(); it != data.end();) {
-    std::vector<std::pair<int, int> >::iterator next_it = it;
+  pairs.reserve(data.size() / 2 + 1);
+  for (std::vector<int>::iterator it = data.begin(); it != data.end();) {
+    std::vector<int>::iterator next_it = it;
     ++next_it;
     if (next_it != data.end()) {
-      if (it->first >= next_it->first) {
-        winners.push_back(*it);
-        losers.push_back(*next_it);
-      } else {
-        winners.push_back(*next_it);
-        losers.push_back(*it);
-      }
+      winners.push_back(std::max(*it, *next_it));
+      pairs.push_back(std::make_pair(winners.back(), std::min(*it, *next_it)));
       it = next_it;
       ++it;
     } else {
-      losers.push_back(*it);
+      winners.push_back(*it);
+      pairs.push_back(std::make_pair(winners.back(), NO_PAIR));
       ++it;
     }
-    vectorSort(winners);
   }
+  vectorSort(winners);
+  vectorInsert(winners, pairs);
+  data.swap(winners);
+}
+
+void PmergeMe::vectorInsert(std::vector<int>& winners, std::vector<std::pair<int, int> >& pairs) {
+  for (size_t i = 0; i < jacobsthal.size(); ++i) {
+    size_t index = (jacobsthal[i] < pairs.size()) ? jacobsthal[i] : pairs.size() - 1;
+    for (; pairs[index].first != DONE; --index) {
+      int w_val = pairs[index].first;
+      int l_val = pairs[index].second;
+      if (l_val == NO_PAIR)
+        continue;
+      pairs[index].first = DONE;
+      std::vector<int>::iterator w_pos = std::find(winners.begin(), winners.end(), w_val);
+      std::vector<int>::iterator insert_pos = std::lower_bound(winners.begin(), w_pos, l_val);
+      winners.insert(insert_pos, l_val);
+      if (index == 0)
+        break;
+    }
+  }
+}
+
+void PmergeMe::listSort(std::list<int>& data) {
+  if (handleBaseCase(data))
+    return;
+  std::list<int> winners;
+  std::list<std::pair<int, int> > pairs;
+  for (std::list<int>::iterator it = data.begin(); it != data.end();) {
+    std::list<int>::iterator next_it = it;
+    ++next_it;
+    if (next_it != data.end()) {
+      winners.push_back(std::max(*it, *next_it));
+      pairs.push_back(std::make_pair(winners.back(), std::min(*it, *next_it)));
+      it = next_it;
+      ++it;
+    } else {
+      winners.push_back(*it);
+      pairs.push_back(std::make_pair(winners.back(), NO_PAIR));
+      ++it;
+    }
+  }
+  listSort(winners);
+  listInsert(winners, pairs);
+  data.swap(winners);
+}
+
+void PmergeMe::listInsert(std::list<int>& winners, std::list<std::pair<int, int> >& pairs) {
+  for (size_t i = 0; i < jacobsthal.size(); ++i) {
+    size_t index = (jacobsthal[i] < pairs.size()) ? jacobsthal[i] : pairs.size() - 1;
+    std::list<std::pair<int, int> >::iterator it = getStartIterator(pairs, index);
+    for (; it->first != DONE; --it) {
+      int w_val = it->first;
+      int l_val = it->second;
+      if (l_val == NO_PAIR)
+        continue;
+      it->first = DONE;
+      std::list<int>::iterator w_pos = std::find(winners.begin(), winners.end(), w_val);
+      std::list<int>::iterator insert_pos = std::lower_bound(winners.begin(), w_pos, l_val);
+      winners.insert(insert_pos, l_val);
+      if (it == pairs.begin())
+        break;
+    }
+  }
+}
+
+std::list<std::pair<int, int> >::iterator PmergeMe::getStartIterator(std::list<std::pair<int, int> >& data, size_t index) {
+  std::list<std::pair<int, int> >::iterator it = data.begin();
+  std::advance(it, index);
+  return it;
 }
