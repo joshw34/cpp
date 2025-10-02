@@ -1,11 +1,12 @@
 #include <iostream>
 
 #include "../inc/BitcoinExchange.hpp"
+#include "../inc/Colors.hpp"
 
 int main(int ac, char** av) {
   if (ac != 2) {
-    std::cerr << "Error: Incorrect number of arguments\nCorrect Usage: ./btc "
-                 "input_file\n";
+    std::cerr << "Error: Incorrect number of arguments\nCorrect Usage:"
+              << " ./btc" << ITALIC << " input_file\n" << RESET;
     return EXIT_FAILURE;
   }
   if (av[1][0] == '\0') {

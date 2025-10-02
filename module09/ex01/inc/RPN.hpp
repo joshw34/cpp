@@ -9,15 +9,14 @@
 class RPN {
  public:
   RPN(const std::string&);
-  RPN(const RPN&);
   ~RPN();
-
-  RPN& operator=(const RPN&);
 
   void solve();
 
  private:
   RPN();
+  RPN(const RPN&);
+  RPN& operator=(const RPN&);
 
   std::string input;
   std::stack<double> operands;

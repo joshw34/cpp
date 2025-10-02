@@ -1,6 +1,6 @@
-#include <iostream>
-
 #include "../inc/BitcoinExchange.hpp"
+
+#include <iostream>
 
 BitcoinExchange::BitcoinExchange() {}  // Private
 
@@ -45,8 +45,7 @@ void BitcoinExchange::processInputFile() {
     throw std::runtime_error("Error: Unable to open input file.");
   std::string line;
   std::getline(infile, line);  // Skip header line
-  while (std::getline(infile, line))
-    processLine(line);
+  while (std::getline(infile, line)) processLine(line);
 }
 
 void BitcoinExchange::processLine(const std::string& line) {
@@ -105,6 +104,8 @@ void BitcoinExchange::lookupValue(const std::string& date, const double& amount)
   std::map<std::string, double>::const_iterator it = data.upper_bound(date);
   if (it == data.begin())
     throw std::out_of_range("Error: date is too early.");
+  if (it == data.end())
+    throw std::out_of_range("Error: date is too late.");
   else
     --it;
   std::cout << date << " => " << amount << " = " << it->second * amount << "\n";
